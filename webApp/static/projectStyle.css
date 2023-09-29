@@ -1,0 +1,14 @@
+.navbar-blue {
+background:#0066cc;
+height:120px;
+}
+
+.nav-link {
+color:white !important;
+}
+
+.form-container {
+display: grid;
+place-items: center;
+min-height: 50vh;
+}
