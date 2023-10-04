@@ -14,3 +14,7 @@ def dashboard():
 @views.route('/courses')
 def courses():
     return render_template("courses.html")
+
+@views.route('/gtaApplication')
+def gta_application():
+    return render_template("gtaApplication.html")
