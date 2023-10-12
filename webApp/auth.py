@@ -1,15 +1,11 @@
 from flask import Blueprint, render_template, request, flash, url_for, redirect
-from flask_login import login_user, login_manager
-
-from . import db
+from werkzeug.security import check_password_hash
 from .tables import User
-# Blueprints have a bunch of roots and URLs stored inside of it
-# It is a way for us to separate our app out
-
 auth = Blueprint('auth', __name__)
 
-@auth.route('/', methods=['GET', 'POST'])
-def login():
+
+@auth.route('/', methods=['POST'])
+def login_post():
     data = request.form
     print(data)
     if request.method == 'POST':
@@ -17,12 +13,15 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
-        if user:
-            if user.password == password:
-                flash('Login successful', category='success')
-                #login_user(user)
-                return redirect(url_for('views.dashboard'))
+        if not user or not check_password_hash(user.password, password):
+            flash('Please check your login details and try again.')
+            return redirect(url_for('auth.login'))
 
+        return redirect(url_for('views.dashboard'))
+
+
+@auth.route('/')
+def login():
     return render_template("login.html")
 
 
