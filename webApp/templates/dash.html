@@ -1,4 +1,21 @@
 {% extends "base.html" %} {% block title %}Dashboard{% endblock %}
 {% block content %}
+
+{% with messages = get_flashed_messages(category_filter=["success"]) %}
+{% if messages %}
+    <div class="flashes-success" >
+        <p>{{ messages[0] }} </p>
+    </div>
+{% endif %}
+{% endwith %}
+
+{% with messages = get_flashed_messages(category_filter=["error"]) %}
+{% if messages %}
+    <div class="flashes-error" >
+        <p>{{ messages[0] }} </p>
+    </div>
+{% endif %}
+{% endwith %}
+
     <h1>USER INFORMATION WILL BE DISPLAYED HERE ON THEIR DASHBOARD</h1>
 {% endblock %}

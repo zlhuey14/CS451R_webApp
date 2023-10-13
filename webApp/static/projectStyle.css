@@ -12,3 +12,35 @@ display: grid;
 place-items: center;
 min-height: 50vh;
 }
+
+.flashes-error {
+padding: 4px;
+background-color: red;
+color: white;
+text-align: center;
+
+-webkit-animation: cssAnimation 5s forwards;
+animation: cssAnimation 5s forwards;
+
+}
+
+.flashes-success {
+padding: 4px;
+background-color: green;
+color: white;
+text-align: center;
+
+-webkit-animation: cssAnimation 5s forwards;
+animation: cssAnimation 5s forwards;
+}
+
+@keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+@-webkit-keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}

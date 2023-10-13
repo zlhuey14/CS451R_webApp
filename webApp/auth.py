@@ -14,9 +14,10 @@ def login_post():
 
         user = User.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password, password):
-            flash('Please check your login details and try again.')
+            flash('Check your login credentials and try again.', 'error')
             return redirect(url_for('auth.login'))
-
+        else:
+            flash('Login successful.', 'success')
         return redirect(url_for('views.dashboard'))
 
 
