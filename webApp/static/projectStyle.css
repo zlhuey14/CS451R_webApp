@@ -44,3 +44,9 @@ animation: cssAnimation 5s forwards;
     90%  {opacity: 1;}
     100% {opacity: 0;}
 }
+
+#nav-logo {
+float: left;
+width: 110.3125px;
+height: 85px;
+}
