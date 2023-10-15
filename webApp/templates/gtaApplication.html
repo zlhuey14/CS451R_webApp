@@ -1,23 +1,33 @@
 {% extends "base.html" %}
 {% block title %}Application Form{% endblock %}
 {% block content %}
+<div class="gta-app-container">
     <h1>Application Form</h1>
-    <form method="POST" action="/submit">
+    <form method="POST" action="/submit" class="form-horizontal">
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required><br><br>
+        <input type="text" id="first_name" name="first_name" required>
 
         <label for="last_name">Last Name:</label>
         <input type="text" id="last_name" name="last_name" required><br><br>
 
+        <label for="student_id">Student ID:</label>
+        <input type="text" id="student_id" name="student_id" required>
+
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" required><br><br>
+        <label for="current_level">Current Level:</label>
+        <select name="level" id="current_level">
+            <option value="bs">BS</option>
+            <option value="ms">MS</option>
+            <option value="phd">PhD</option>
+        </select>
 
-        <label for="student_id">Student ID:</label>
-        <input type="text" id="student_id" name="student_id" required><br><br>
+        <label for="grad_semester">Graduating Semester:</label>
+        <input type="text" id="grad_semester" name="phone" required><br><br>
+
 
         <input type="submit" value="Submit">
     </form>
+</div>
 {% endblock %}
