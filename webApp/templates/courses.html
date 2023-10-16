@@ -1,9 +1,15 @@
 {% extends "base.html" %} {% block title %}Add Courses{% endblock %}
 {% block content %}
     <h1>Courses</h1>
-    <ul>
-        {% for course in courses %}
-            <li><a href="/course/{{ course.id }}">{{ course.name }}</a></li>
-        {% endfor %}
-    </ul>
+        <form action="/enroll" method="post">
+        <ul>
+            {% for course in courses %}
+                <li>
+                    <input type="checkbox" id="course_{{ course.id }}" name="selected_courses" value="{{ course.id }}">
+                    <label for="course_{{ course.id }}">{{ course.name }}</label>
+                </li>
+            {% endfor %}
+        </ul>
+        <button type="submit">Enroll</button>
+    </form>
 {% endblock %}

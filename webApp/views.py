@@ -15,8 +15,38 @@ class Course:
 
 
 courses = [
-    Course(1, 'Introduction to Web Development', 'John Doe', 'Learn the basics of web development.'),
-    Course(2, 'Python Programming for Beginners', 'Jane Smith', 'An introductory Python programming course.')
+    Course(1, 'CS 101'),
+    Course(2, 'CS 191'),
+    Course(3, 'CS 201R'),
+    Course(4, 'CS 291'),
+    Course(5, 'CS 303'),
+    Course(6, 'CS 320'),
+    Course(7, 'CS 349'),
+    Course(8, 'CS 394R'),
+    Course(9, 'CS 404'),
+    Course(10, 'CS 441'),
+    Course(11, 'CS 449'),
+    Course(12, 'CS 456'),
+    Course(13, 'CS 457'),
+    Course(14, 'CS 458'),
+    Course(15, 'CS 461'),
+    Course(16, 'CS 465R'),
+    Course(17, 'CS 470'),
+    Course(18, 'CS 5520'),
+    Course(19, 'CS 5525'),
+    Course(20, 'CS 5552A'),
+    Course(21, 'CS 5565'),
+    Course(22, 'CS 5573'),
+    Course(23, 'CS 5590PA'),
+    Course(24, 'CS 5592'),
+    Course(25, 'CS 5596A'),
+    Course(26, 'CS 5596B'),
+    Course(27, 'ECE 216'),
+    Course(28, 'ECE 226'),
+    Course(29, 'ECE 228'),
+    Course(30, 'ECE 241'),
+    Course(31, 'ECE 276'),
+
 ]
 
 
