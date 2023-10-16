@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for, request
 
 # Blueprints have a bunch of routes and URLs stored inside of it
 # It is a way for us to separate our app out
@@ -39,6 +39,6 @@ def course(course_id):
         return 'Course not found'
 
 
-@views.route('/gtaApplication')
+@views.route('/gtaApplication', methods=['GET', 'POST'])
 def gta_application():
     return render_template("gtaApplication.html")
