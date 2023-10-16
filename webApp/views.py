@@ -44,6 +44,22 @@ courses = [
     Course(29, 'ECE 228'),
     Course(30, 'ECE 241'),
     Course(31, 'ECE 276'),
+    Course(32, 'ECE 302'),
+    Course(33, 'ECE 330'),
+    Course(34, 'ECE 341R'),
+    Course(35, 'ECE 428R'),
+    Course(36, 'ECE 458'),
+    Course(37, 'ECE 466'),
+    Course(38, 'ECE 477'),
+    Course(39, 'ECE 486'),
+    Course(40, 'ECE 5558'),
+    Course(41, 'ECE 5560'),
+    Course(42, 'ECE 5567'),
+    Course(43, 'ECE 5577'),
+    Course(44, 'ECE 5578'),
+    Course(45, 'ECE 5586'),
+    Course(46, 'IT 222'),
+    Course(47, 'IT 321'),
 
 ]
 
