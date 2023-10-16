@@ -7,11 +7,9 @@ views = Blueprint('views', __name__)
 
 
 class Course:
-    def __init__(self, id, name, instructor, description):
+    def __init__(self, id, name):
         self.id = id
         self.name = name
-        self.instructor = instructor
-        self.description = description
 
 
 courses = [
