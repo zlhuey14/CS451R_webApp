@@ -10,6 +10,20 @@
                 </li>
             {% endfor %}
         </ul>
+
+    <h2>Lab Courses</h2>
+    <form action="/enroll" method="post">
+        <ul>
+            {% for course in courses %}
+                {% if course.type == "Lab" %}
+                    <li>
+                        <input type="checkbox" id="course_{{ course.id }}" name="selected_courses" value="{{ course.id }}">
+                        <label for="course_{{ course.id }}">{{ course.name }}</label>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
         <button type="submit">Enroll</button>
     </form>
 {% endblock %}
