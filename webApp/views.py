@@ -16,13 +16,7 @@ class Course:
 
 courses = [
     Course(1, 'Introduction to Web Development', 'John Doe', 'Learn the basics of web development.'),
-    Course(2, 'Python Programming for Beginners', 'Jane Smith', 'An introductory Python programming course.'),
-    Course(3, 'Data Science Fundamentals', 'Alice Johnson', 'Explore the world of data science and analytics.'),
-    Course(4, 'Machine Learning Essentials', 'David Brown', 'Get started with machine learning techniques.'),
-    Course(5, 'Web Application Security', 'Emily Davis', 'Learn how to secure web applications against attacks.'),
-    Course(6, 'Databases and SQL', 'Michael White', 'Master database management and SQL queries.'),
-    Course(7, 'Mobile App Development', 'Sophia Lee', 'Build mobile apps for iOS and Android platforms.'),
-    Course(8, 'Artificial Intelligence Fundamentals', 'Robert Turner', 'Discover the fundamentals of AI.'),
+    Course(2, 'Python Programming for Beginners', 'Jane Smith', 'An introductory Python programming course.')
 ]
 
 
