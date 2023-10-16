@@ -70,3 +70,4 @@ def course(course_id):
 @views.route('/gtaApplication', methods=['GET', 'POST'])
 def gta_application():
     return render_template("gtaApplication.html")
+#COMMENT
