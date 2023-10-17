@@ -29,15 +29,15 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    test_email = 'cs451r@umsystem.edu'
-    test_pass = '12345'
+    #test_email = 'zlhuey@umsystem.edu'
+    #test_pass = '112233'
     with app.app_context():
-        db.drop_all()
+        #db.drop_all()
         db.create_all()
 
-        test_user = User(email=test_email, password=generate_password_hash(test_pass, method='pbkdf2'))
-        db.session.add(test_user)
-        db.session.commit()
+        #test_user = User(email=test_email, password=generate_password_hash(test_pass, method='pbkdf2'))
+        #db.session.add(test_user)
+        #db.session.commit()
 
     return app
 
