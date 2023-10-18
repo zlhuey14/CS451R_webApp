@@ -12,6 +12,20 @@ class Course:
         self.name = name
 
 
+lab_courses = [
+    Course(1, 'CS 101L'),
+    Course(2, 'CS201L,'),
+    Course(3, 'ECE 227'),
+    Course(4, 'ECE 229'),
+    Course(5, 'ECE 227'),
+    Course(6, 'ECE 303'),
+    Course(7, 'ECE 377'),
+    Course(8, 'ECE 331'),
+    Course(9, 'ECE 427'),
+    Course(10, 'ECE 429')
+]
+
+
 courses = [
     Course(1, 'CS 101'),
     Course(2, 'CS 191'),
@@ -59,9 +73,11 @@ courses = [
     Course(44, 'ECE 5578'),
     Course(45, 'ECE 5586'),
     Course(46, 'IT 222'),
-    Course(47, 'IT 321'),
+    Course(47, 'IT 321')
 
 ]
+
+
 
 
 @views.route('/dashboard', methods=['GET', 'POST'])
@@ -71,16 +87,16 @@ def dashboard():
 
 @views.route('/courses')
 def course_list():
-    return render_template('courses.html', courses=courses)
+    return render_template('courses.html', courses=courses, lab_courses=lab_courses)
 
 
-@views.route('/course/<int:course_id>')
-def course(course_id):
-    course_info = next((course for course in courses if course.id == course_id), None)
-    if course_info:
-        return render_template('course.html', course=course_info)
-    else:
-        return 'Course not found'
+#@views.route('/course/<int:course_id>')
+#def course(course_id):
+#    course_info = next((course for course in courses if course.id == course_id), None)
+#    if course_info:
+#        return render_template('course.html', course=course_info)
+#    else:
+#        return 'Course not found'
 
 
 @views.route('/gtaApplication', methods=['GET', 'POST'])

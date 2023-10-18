@@ -24,13 +24,14 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
 
     from .tables import User
+    from .tables import GTAApplication
 
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    #test_email = 'zlhuey@umsystem.edu'
-    #test_pass = '112233'
+    #test_email = 'cs451r@umsystem.edu'
+    #test_pass = '12345'
     with app.app_context():
         #db.drop_all()
         db.create_all()

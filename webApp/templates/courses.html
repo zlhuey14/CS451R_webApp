@@ -12,15 +12,13 @@
         </ul>
 
     <h2>Lab Courses</h2>
-    <form action="/enroll" method="post">
+    <!--<form action="/enroll" method="post">-->
         <ul>
-            {% for course in courses %}
-                {% if course.type == "Lab" %}
-                    <li>
-                        <input type="checkbox" id="course_{{ course.id }}" name="selected_courses" value="{{ course.id }}">
-                        <label for="course_{{ course.id }}">{{ course.name }}</label>
-                    </li>
-                {% endif %}
+            {% for course in lab_courses %}
+            <li>
+                <input type="checkbox" id="lab_course_{{ course.id }}" name="selected_courses" value="{{ course.id }}">
+                <label for="lab_course_{{ course.id }}">{{ course.name }}</label>
+            </li>
             {% endfor %}
         </ul>
 
