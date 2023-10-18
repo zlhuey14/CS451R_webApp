@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 
 views = Blueprint('views', __name__)
 
-
+#>>
 class Course:
     def __init__(self, id, name):
         self.id = id
