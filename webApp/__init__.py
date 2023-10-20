@@ -24,7 +24,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
 
     from .tables import User
-    from .tables import GTAApplication
+    #from .tables import GTAApplication
 
     @login_manager.user_loader
     def load_user(user_id):

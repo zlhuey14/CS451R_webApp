@@ -3,62 +3,92 @@
 {% block content %}
 <div class="gta-app-container">
     <h1>Application Form</h1>
-    <form method="POST" class="form-horizontal">
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required>
+    <form method="POST" class="row g-2">
+        <div class="col-md-6">
+            <label for="first_name" class="form-label">First Name: **</label>
+            <input type="text" class="form-control" id="first_name" required>
+        </div>
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required><br><br>
+        <div class="col-md-6">
+            <label for="last_name" class="form-label">Last Name: **</label>
+            <input type="text" class="form-control" id="last_name" required>
+        </div>
 
-        <label for="student_id">Student ID:</label>
-        <input type="text" id="student_id" name="student_id" required>
+        <div class="col-md-6">
+            <label for="student_id" class="form-label">Student ID: **</label>
+            <input type="text" class="form-control" id="student_id" required>
+        </div>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email: **</label>
+            <input type="email" class="form-control" id="email" required>
+        </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <div class="col-md-6">
+            <label for="current_level" class="form-label">Current Level: **</label>
+            <select name="level" class="form-control" id="current_level" required>
+                <option selected>Choose...</option>
+                <option value="bs">BS</option>
+                <option value="ms">MS</option>
+                <option value="phd">PhD</option>
+            </select>
+        </div>
 
-        <label for="current_level">Current Level:</label>
-        <select name="level" id="current_level">
-            <option value="bs">BS</option>
-            <option value="ms">MS</option>
-            <option value="phd">PhD</option>
-        </select>
+        <div class="col-md-6">
+            <label for="grad-semester" class="form-label">Graduating Semester: **</label>
+            <input class="form-control" id="grad-semester" required>
 
-        <label for="grad_semester">Graduating Semester:</label>
-        <input type="text" id="grad_semester" name="grad_semester" required><br><br>
 
-        <label for="umkc_gpa">UMKC Cumulative GPA (leave blank if first semester is in progress):</label>
-        <input type="text" id="umkc_gpa" name="unkc_gpa" required><br><br>
+        </div>
 
-         <label for="umkc_hours">Hours Completed at UMKC (leave blank if first semester is in progress):</label>
-        <input type="text" id="umkc_hours" name="umkc_hours" required><br><br>
+        <div class="col-md-6">
+            <label for="umkc_gpa" class="form-label">UMKC Cumulative GPA:</label>
+            <input type="text" class="form-control" id="umkc_gpa">
+        </div>
 
-        <label for="undergrad_degree">Undergraduate Degree:</label>
-        <input type="text" id="undergrad_degree" name="undergrad_degree" required><br><br>
+        <div class="col-md-6">
+            <label for="umkc_hours" class="form-label">Hours Completed at UMKC:</label>
+            <input type="text" class="form-control" id="umkc_hours">
+        </div>
 
-        <label for="current_major">Current Major:</label>
-        <select name="level" id="current_major">
-            <option value="cs">CS</option>
-            <option value="it">IT</option>
-            <option value="ece">ECE</option>
-            <option value="ee">EE</option>
-        </select><br><br>
+        <div class="col-md-6">
+            <label for="undergrad_degree" class="form-label">Undergraduate Degree:</label>
+            <input type="text" class="form-control" id="undergrad_degree" >
+        </div>
 
-        <label for="applying_for">Applying For:</label>
-        <select name="level" id="applying_for">
-            <option value="grader">Grader</option>
-            <option value="lab_instructor">Lab Instructor</option>
-            <option value="both">Both</option>
-        </select><br><br>
+        <div class="col-md-6">
+            <label for="current_major" class="form-label">Current Major: **</label>
+            <select name="level" class="form-control" id="current_major" required>
+                <option selected>Choose...</option>
+                <option value="cs">CS</option>
+                <option value="it">IT</option>
+                <option value="ece">ECE</option>
+                <option value="ee">EE</option>
+            </select>
+        </div>
 
-        <label for="international_student">(International Students ONLY) Are you GTA Certified? If so, which term did you complete your certification? If you have a previous degree from a US
-Institute, please indicate this as that waives GTA certification:</label>
-        <input type="text" id="international_student" name="international_student" required><br><br>
+        <div class="col-md-12">
+            <label for="apply_for" class="form-label">Applying For: **</label>
+            <select name="level" class="form-control" id="apply_for" required>
+                <option selected>Choose...</option>
+                <option value="grader">Grader</option>
+                <option value="lab_instructor">Lab Instructor</option>
+                <option value="both">Both</option>
+            </select>
+        </div>
 
-        <label for="course_interest">Courses you could serve as lab instructor or grade for (ex. CS 201L/CS 5525/ECE 216, etc.):
-</label>
-        <input type="text" id="course_interest" name="course_interest" required><br><br>
+        <div class="col-md-12">
+            <label for="international_student" class="form-label">(International Students ONLY) Are you GTA Certified? If so, which term did you complete your certification? If you have a previous degree from a US Institute, please indicate this as that waives GTA certification:</label>
+            <input type="text" class="form-control" id="international_student">
+        </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-md-12">
+            <label for="course_interest" class="form-label">Courses you could serve as lab instructor or grade for (ex. CS 201L/CS 5525/ECE 216, etc.):</label>
+            <input type="text" class="form-control" id="course_interest"><br>
+        </div>
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary" >Submit</button>
+        </div>
     </form>
 </div>
 <!-- comment -->
