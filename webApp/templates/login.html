@@ -17,14 +17,101 @@
 {% endif %}
 {% endwith %}
 
-<div class ="form-container">
+<!--
+<div class="form-container">
     <h1>Login</h1>
     <form method="POST" action="/">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required><br>
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required><br>
+        <input type="checkbox" id="remember-me" name="remember-me">
+        <label for="remember-me">Remember Me</label><br>
         <button type="submit">Log In</button>
     </form>
+    <a href="forgot_password.html">Forgot Password?</a>
 </div>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        .form-container {
+            max-width: 300px;
+            margin: 100px auto;
+            background: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .remember-me {
+            text-align: left;
+            font-weight: normal;
+        }
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .btn-login {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Login</h1>
+        <form method="POST" action="/">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <div class="form-group remember-me">
+                <input type="checkbox" id="remember-me" name="remember-me">
+                <label for="remember-me">Remember Me</label>
+            </div>
+            <button type="submit" class="btn-login">Log In</button>
+        </form>
+        <div class="forgot-password">
+            <a href="forgot_password.html">Forgot Password?</a>
+        </div>
+    </div>
+</body>
+</html>
+
 {% endblock %}
