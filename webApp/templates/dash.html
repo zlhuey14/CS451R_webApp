@@ -8,14 +8,5 @@
     </div>
 {% endif %}
 {% endwith %}
-
-{% with messages = get_flashed_messages(category_filter=["error"]) %}
-{% if messages %}
-    <div class="flashes-error" >
-        <p>{{ messages[0] }} </p>
-    </div>
-{% endif %}
-{% endwith %}
-
-    <h1>USER INFORMATION WILL BE DISPLAYED HERE ON THEIR DASHBOARD</h1>
+<h1>Hello, {{current_user.email}}</h1>
 {% endblock %}

@@ -23,22 +23,30 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(views, url_prefix='/')
 
-    from .tables import User
-    #from .tables import GTAApplication
+    from .tables import User, GTAApplication
+
+    with app.app_context():
+        val = input('FOR TESTING PURPOSES ONLY, TYPE "Y" IF YOU NEED TO RESET THE DATABASE. ELSE, PRESS ANY KEY TO CONTINUE. ')
+        if val == 'Y':
+            db.drop_all()
+            db.create_all()
+        else:
+            db.create_all()
+
+            test_email = 'cs451r@umsystem.edu'
+            test_pass = '12345'
+            test_user = User.query.filter_by(email=test_email).first()
+            if not test_user:
+                user = User(email=test_email, password=generate_password_hash(test_pass, method='pbkdf2'))
+                db.session.add(user)
+                db.session.commit()
+
+
 
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    #test_email = 'cs451r@umsystem.edu'
-    #test_pass = '12345'
-    with app.app_context():
-        #db.drop_all()
-        db.create_all()
-
-        #test_user = User(email=test_email, password=generate_password_hash(test_pass, method='pbkdf2'))
-        #db.session.add(test_user)
-        #db.session.commit()
-
     return app
+
 

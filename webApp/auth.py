@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, url_for, redirect
+from flask_login import login_user, current_user
 from werkzeug.security import check_password_hash
 from .tables import User
 auth = Blueprint('auth', __name__)
@@ -18,12 +19,13 @@ def login_post():
             return redirect(url_for('auth.login'))
         else:
             flash('Login successful.', 'success')
+            login_user(user)
         return redirect(url_for('views.dashboard'))
 
 
 @auth.route('/')
 def login():
-    return render_template("login.html")
+    return render_template("login.html", user=current_user)
 
 
 @auth.route('/logout')

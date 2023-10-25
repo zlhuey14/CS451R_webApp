@@ -5,27 +5,27 @@
     <h1>Application Form</h1>
     <form method="POST" class="row g-2">
         <div class="col-md-6">
-            <label for="first_name" class="form-label">First Name: **</label>
-            <input type="text" class="form-control" id="first_name" required>
+            <label for="first-name" class="form-label">First Name: **</label>
+            <input type="text" class="form-control" name="first_name" id="first-name" required>
         </div>
 
         <div class="col-md-6">
-            <label for="last_name" class="form-label">Last Name: **</label>
-            <input type="text" class="form-control" id="last_name" required>
+            <label for="last-name" class="form-label">Last Name: **</label>
+            <input type="text" class="form-control" name="last_name" id="last-name" required>
         </div>
 
         <div class="col-md-6">
-            <label for="student_id" class="form-label">Student ID: **</label>
-            <input type="text" class="form-control" id="student_id" required>
+            <label for="std-id" class="form-label">Student ID: **</label>
+            <input type="number" class="form-control" name="std_id" id="std-id" required>
         </div>
         <div class="col-md-6">
-            <label for="email" class="form-label">Email: **</label>
-            <input type="email" class="form-control" id="email" required>
+            <label for="app-email" class="form-label">Email: **</label>
+            <input type="email" class="form-control" name="app_email" id="app-email" required>
         </div>
 
         <div class="col-md-6">
-            <label for="current_level" class="form-label">Current Level: **</label>
-            <select name="level" class="form-control" id="current_level" required>
+            <label for="level" class="form-label">Current Level: **</label>
+            <select name="level" class="form-control" id="level" required>
                 <option selected>Choose...</option>
                 <option value="bs">BS</option>
                 <option value="ms">MS</option>
@@ -35,29 +35,27 @@
 
         <div class="col-md-6">
             <label for="grad-semester" class="form-label">Graduating Semester: **</label>
-            <input class="form-control" id="grad-semester" required>
-
-
+            <input class="form-control" name="grad_semester" id="grad-semester" required>
         </div>
 
         <div class="col-md-6">
-            <label for="umkc_gpa" class="form-label">UMKC Cumulative GPA:</label>
-            <input type="text" class="form-control" id="umkc_gpa">
+            <label for="umkc-gpa" class="form-label">UMKC Cumulative GPA:</label>
+            <input type="text" class="form-control" name="umkc_gpa" id="umkc-gpa">
         </div>
 
         <div class="col-md-6">
-            <label for="umkc_hours" class="form-label">Hours Completed at UMKC:</label>
-            <input type="text" class="form-control" id="umkc_hours">
+            <label for="umkc-hours" class="form-label">Hours Completed at UMKC:</label>
+            <input type="number" class="form-control" name="umkc_hours" id="umkc-hours">
         </div>
 
         <div class="col-md-6">
-            <label for="undergrad_degree" class="form-label">Undergraduate Degree:</label>
-            <input type="text" class="form-control" id="undergrad_degree" >
+            <label for="undergrad" class="form-label">Undergraduate Degree:</label>
+            <input type="text" class="form-control" name="undergrad" id="undergrad" >
         </div>
 
         <div class="col-md-6">
-            <label for="current_major" class="form-label">Current Major: **</label>
-            <select name="level" class="form-control" id="current_major" required>
+            <label for="major" class="form-label">Current Major: **</label>
+            <select name="major" class="form-control" id="major" required>
                 <option selected>Choose...</option>
                 <option value="cs">CS</option>
                 <option value="it">IT</option>
@@ -67,8 +65,8 @@
         </div>
 
         <div class="col-md-12">
-            <label for="apply_for" class="form-label">Applying For: **</label>
-            <select name="level" class="form-control" id="apply_for" required>
+            <label for="apply-for" class="form-label">Applying For: **</label>
+            <select name="apply_for" class="form-control" id="apply-for" required>
                 <option selected>Choose...</option>
                 <option value="grader">Grader</option>
                 <option value="lab_instructor">Lab Instructor</option>
@@ -77,13 +75,13 @@
         </div>
 
         <div class="col-md-12">
-            <label for="international_student" class="form-label">(International Students ONLY) Are you GTA Certified? If so, which term did you complete your certification? If you have a previous degree from a US Institute, please indicate this as that waives GTA certification:</label>
-            <input type="text" class="form-control" id="international_student">
+            <label for="international-std" class="form-label">(International Students ONLY) Are you GTA Certified? If so, which term did you complete your certification? If you have a previous degree from a US Institute, please indicate this as that waives GTA certification:</label>
+            <input type="text" class="form-control" name="international_std" id="international-std">
         </div>
 
         <div class="col-md-12">
-            <label for="course_interest" class="form-label">Courses you could serve as lab instructor or grade for (ex. CS 201L/CS 5525/ECE 216, etc.):</label>
-            <input type="text" class="form-control" id="course_interest"><br>
+            <label for="course-interest" class="form-label">Courses you could serve as lab instructor or grade for (ex. CS 201L/CS 5525/ECE 216, etc.):</label>
+            <input type="text" class="form-control" name="course_interest" id="course-interest"><br>
         </div>
 
         <div class="col-md-12">
