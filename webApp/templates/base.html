@@ -17,29 +17,42 @@
         <link rel="stylesheet" href="static/projectStyle.css"/>
         <title>{% block title %}Base{% endblock %}</title>
     </head>
+
     <body>
-    <div class="nav-container">
-        {% block nav_content %}
+    <!-- NAVBAR -->
+    {% block nav_content %}
     <nav class="navbar navbar-expand-lg navbar-blue">
-        <div id="navbar">
-            <div class ="navbar-nav">
-                <div class="d-flex align-items-center">
-                    <img src="static/UMKC_with name_7405C_white.png" id = "nav-logo" />
-                    <a class="nav-item nav-link" id="dash" href="/dashboard">Dashboard</a>
+        <a class="navbar-brand">
+            <img src="static/UMKC_with name_7405C_white.png" id = "nav-logo" />
+        </a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
                     <a class="nav-item nav-link" id="courses" href="/courses">Add Courses</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-item nav-link" id="gtaApp" href="/gtaApplication">Application</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
                     <span class="navbar-text">Welcome, {{current_user.email}}</span>
-                </div>
-            </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                </li>
+            </ul>
         </div>
     </nav>
-        {% endblock %}
-    </div>
+    {% endblock %}
+    <!-- END OF THE NAVBAR CONTENT -->
 
+    <!-- MAIN PAGE CONTENT TO BE DISPLAYED -->
     <div class="container">
         {% block content %}
         {% endblock %}
     </div>
+    <!-- END OF PAGE CONTENT -->
 
     <!--The scripts loaded below are part of a bootstrap that gives us extra functionality-->
     <script

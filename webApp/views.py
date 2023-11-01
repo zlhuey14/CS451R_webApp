@@ -43,11 +43,11 @@ courses = [
     Course(46, 'IT 222'), Course(47, 'IT 321')
 ]
 
-
+"""
 @views.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     return render_template("dash.html", user=current_user)
-
+"""
 
 @views.route('/courses')
 def course_list():

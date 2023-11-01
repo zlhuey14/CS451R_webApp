@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, flash, url_for, redirect
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from werkzeug.security import check_password_hash
 from .tables import User
+
+
 auth = Blueprint('auth', __name__)
-
-
 @auth.route('/', methods=['POST'])
 def login_post():
     data = request.form
@@ -20,7 +20,7 @@ def login_post():
         else:
             flash('Login successful.', 'success')
             login_user(user)
-        return redirect(url_for('views.dashboard'))
+        return redirect(url_for('views.course_list'))
 
 
 @auth.route('/')
@@ -30,4 +30,5 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    return "<p>logout</p>"
+    logout_user()
+    return redirect(url_for('auth.login'))

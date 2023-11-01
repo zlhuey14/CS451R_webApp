@@ -1,27 +1,20 @@
 {% extends "base.html" %} {% block title %}Add Courses{% endblock %}
 {% block content %}
     <h1>Courses</h1>
-        <form action="/enroll" method="post">
         <ul>
             {% for course in courses %}
-                <li>
-                    <input type="checkbox" id="course_{{ course.id }}" name="selected_courses" value="{{ course.id }}">
-                    <label for="course_{{ course.id }}">{{ course.name }}</label>
-                </li>
+                <input type="button" id="course_{{ course.id }}" value="Apply">
+                <label for="course_{{ course.id }}">{{ course.name }}</label>
+                <br>
             {% endfor %}
         </ul>
 
     <h2>Lab Courses</h2>
-    <!--<form action="/enroll" method="post">-->
         <ul>
             {% for course in lab_courses %}
-            <li>
-                <input type="checkbox" id="lab_course_{{ course.id }}" name="selected_courses" value="{{ course.id }}">
+                <input type="button" id="lab_course_{{ course.id }}" value="Apply">
                 <label for="lab_course_{{ course.id }}">{{ course.name }}</label>
-            </li>
+                <br>
             {% endfor %}
         </ul>
-
-        <button type="submit">Enroll</button>
-    </form>
 {% endblock %}
