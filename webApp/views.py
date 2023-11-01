@@ -13,7 +13,7 @@ class Course:
 
 
 lab_courses = [
-    Course(1, 'CS 101L'), Course(2, 'CS201L'), Course(3, 'ECE 227'),
+    Course(1, 'CS 101L'), Course(2, 'CS 201L'), Course(3, 'ECE 227'),
     Course(4, 'ECE 229'), Course(5, 'ECE 227'), Course(6, 'ECE 303'),
     Course(7, 'ECE 377'), Course(8, 'ECE 331'), Course(9, 'ECE 427'),
     Course(10, 'ECE 429')
