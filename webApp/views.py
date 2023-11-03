@@ -1,11 +1,15 @@
 from flask import Blueprint, render_template, redirect, url_for, request
+from flask_login import current_user
+
+from . import db
+from .tables import GTAApplication
 
 # Blueprints have a bunch of routes and URLs stored inside of it
 # It is a way for us to separate our app out
 
 views = Blueprint('views', __name__)
 
-#>>
+
 class Course:
     def __init__(self, id, name):
         self.id = id
@@ -13,9 +17,9 @@ class Course:
 
 
 lab_courses = [
-    Course(1, 'CS 101L'), Course(2, 'CS 201L'), Course(3, 'ECE 227'),
+    Course(1, 'CS 101L'), Course(2, 'CS201L,'), Course(3, 'ECE 227'),
     Course(4, 'ECE 229'), Course(5, 'ECE 227'), Course(6, 'ECE 303'),
-    Course(7, 'ECE 377'), Course(8, 'ECE 331'), Course(9, 'ECE 427'),
+    Course(7, 'ECE 377'),Course(8, 'ECE 331'), Course(9, 'ECE 427'),
     Course(10, 'ECE 429')
 ]
 
@@ -39,37 +43,56 @@ courses = [
     Course(46, 'IT 222'), Course(47, 'IT 321')
 ]
 
-"""
+
 @views.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    return render_template("dash.html")
-"""
+    return render_template("dash.html", user=current_user)
+
 
 @views.route('/courses')
 def course_list():
     return render_template('courses.html', courses=courses, lab_courses=lab_courses)
 
 
-@views.route('/gtaApplication', methods=['GET', 'POST'])
+@views.route('/gtaApplication')
 def gta_application():
-    return render_template("gtaApplication.html")
+    return render_template("gtaApplication.html", user=current_user)
 
 
 @views.route('/gtaApplication', methods=['GET', 'POST'])
 def gta_application_post():
     data = request.form
+    print(data)
+    if current_user.is_authenticated:
+        #return redirect(url_for('views.dashboard'))
+        if request.method == 'POST':
+            f_name = request.form.get('first_name')
+            l_name = request.form.get('last_name')
+            std_id = request.form.get('std_id')
+            app_email = request.form.get('app_email')
+            level = request.form.get('level')
+            grad_semester = request.form.get('grad_semester')
+            umkc_gpa = request.form.get('umkc_gpa')
+            umkc_hours = request.form.get('umkc_hours')
+            undergrad = request.form.get('undergrad_degree')
+            major = request.form.get('major')
+            apply_for = request.form.get('apply_for')
 
-    if request.method == 'POST':
-        f_name = request.form.get('first_name')
-        l_name = request.form.get('last_name')
-        std_id = request.form.get('student_id')
-        cur_level = request.form.get('current_level')
-        grad_semester = request.form.get('grad_semester')
-        gpa = request.form.get('umkc_gpa')
-        hours = request.form.get('umkc_hours')
-        undergrad_degree = request.form.get('undergrad_degree')
-        cur_major = request.form.get('current_major')
-        apply_for = request.form.get('apply_for')
+            user_app = GTAApplication(user_id=current_user.id, f_name=f_name,
+                                    l_name=l_name, std_id=std_id,
+                                    app_email=app_email, level=level,
+                                    grad_semester=grad_semester, umkc_gpa=umkc_gpa,
+                                    umkc_hours=umkc_hours, undergrad=undergrad,
+                                    major=major, apply_for=apply_for)
+            db.session.add(user_app)
+            db.session.commit()
+
+            return redirect(url_for('views.gta_application'))
+
+
+@views.route('/home')
+def home():
+    return render_template("base.html")
 
 
 

@@ -23,14 +23,17 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(views, url_prefix='/')
 
-    from .tables import User, GTAApplication
+    from .tables import User, GTAApplication, AdminUser
 
     with app.app_context():
-        val = input('FOR TESTING PURPOSES ONLY, TYPE "Y" IF YOU NEED TO RESET THE DATABASE. ELSE, PRESS ANY KEY TO CONTINUE. ')
-        if val == 'Y':
+        inputs = ['Y', 'N']
+        val = input('FOR TESTING PURPOSES ONLY, TYPE "Y" IF YOU NEED TO RESET THE DATABASE. ELSE TYPE "N"')
+        if val not in inputs:
+            val = input('INVALID INPUT, TYPE "Y" IF YOU NEED TO RESET THE DATABASE. ELSE TYPE "N"')
+        if val in inputs and val == 'Y':
             db.drop_all()
             db.create_all()
-        else:
+        elif val in inputs and val == 'N':
             db.create_all()
 
             test_email = 'zlhuey14@gmail.com'
@@ -39,6 +42,14 @@ def create_app():
             if not test_user:
                 user = User(email=test_email, password=generate_password_hash(test_pass, method='pbkdf2'))
                 db.session.add(user)
+                db.session.commit()
+
+            test_admin_email = 'cs451r.admin@umsystem.edu'
+            test_admin_pass = '54321'
+            test_admin = AdminUser.query.filter_by(email=test_admin_email).first()
+            if not test_admin:
+                admin = AdminUser(email=test_admin_email, password=generate_password_hash(test_admin_pass, method='pbkdf2'))
+                db.session.add(admin)
                 db.session.commit()
 
 
