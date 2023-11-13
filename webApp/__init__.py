@@ -44,26 +44,10 @@ def create_app():
                 db.session.add(user)
                 db.session.commit()
 
-            """
-            test_admin_email = 'cs451r.admin@umsystem.edu'
-            test_admin_pass = '54321'
-            test_admin = AdminUser.query.filter_by(email=test_admin_email).first()
-            if not test_admin:
-                admin = AdminUser(email=test_admin_email, password=generate_password_hash(test_admin_pass, method='pbkdf2'))
-                db.session.add(admin)
-                db.session.commit()
-            """
-
 
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
-
-    """
-    @login_manager.user_loader
-    def load_admin(admin_id):
-        return AdminUser.query.get(int(admin_id))
-    """
 
 
 
