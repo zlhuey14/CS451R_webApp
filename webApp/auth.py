@@ -14,12 +14,12 @@ def login_post():
         email = request.form.get('username')
         password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
-        if user:
-            if check_password_hash(user.password, password):
-                login_user(user)
-            else:
-                flash('Check your login credentials and try again.', 'error')
-                return redirect(url_for('auth.login'))
+        if not user or not check_password_hash(user.password, password):
+            flash('Check your login credentials and try again.', 'error')
+            return redirect(url_for('auth.login'))
+        else:
+            #flash('Login successful.', 'success')
+            login_user(user)
 
         return redirect(url_for('views.home'))
 

@@ -26,6 +26,7 @@ def create_app():
     from .tables import User, GTAApplication
 
     with app.app_context():
+        db.create_all()
         test_email = 'e404f@umsystem.edu'
         test_pass = '112233'
         test_user = User.query.filter_by(email=test_email).first()
