@@ -23,7 +23,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(views, url_prefix='/')
 
-    from .tables import User, GTAApplication, AdminUser
+    from .tables import User, GTAApplication
 
     with app.app_context():
         inputs = ['Y', 'N']
@@ -36,7 +36,7 @@ def create_app():
         elif val in inputs and val == 'N':
             db.create_all()
 
-            test_email = 'zlhuey14@gmail.com'
+            test_email = 'e404f@umsystem.edu'
             test_pass = '112233'
             test_user = User.query.filter_by(email=test_email).first()
             if not test_user:
@@ -44,6 +44,7 @@ def create_app():
                 db.session.add(user)
                 db.session.commit()
 
+            """
             test_admin_email = 'cs451r.admin@umsystem.edu'
             test_admin_pass = '54321'
             test_admin = AdminUser.query.filter_by(email=test_admin_email).first()
@@ -51,11 +52,20 @@ def create_app():
                 admin = AdminUser(email=test_admin_email, password=generate_password_hash(test_admin_pass, method='pbkdf2'))
                 db.session.add(admin)
                 db.session.commit()
+            """
 
 
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+
+    """
+    @login_manager.user_loader
+    def load_admin(admin_id):
+        return AdminUser.query.get(int(admin_id))
+    """
+
+
 
     return app
 

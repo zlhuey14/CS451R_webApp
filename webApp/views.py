@@ -92,7 +92,7 @@ def gta_application_post():
 
 @views.route('/home')
 def home():
-    return render_template("base.html")
+    return render_template("home.html", user=current_user)
 
 
 

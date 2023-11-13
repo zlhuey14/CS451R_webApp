@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, url_for, redirect
 from flask_login import login_user, current_user, logout_user
 from werkzeug.security import check_password_hash
-from .tables import User, AdminUser
+from .tables import User
 
 auth = Blueprint('auth', __name__)
 
@@ -13,24 +13,40 @@ def login_post():
     if request.method == 'POST':
         email = request.form.get('username')
         password = request.form.get('password')
-
         user = User.query.filter_by(email=email).first()
-        admin = AdminUser.query.filter_by(email=email).first()
+        #admin = AdminUser.query.filter_by(email=email).first()
+        if user:
+            if check_password_hash(user.password, password):
+                login_user(user)
+            else:
+                flash('Check your login credentials and try again.', 'error')
+                return redirect(url_for('auth.login'))
+
+        """
+        if admin:
+            if check_password_hash(admin.password, password):
+                login_user(admin)
+            else:
+                flash('Check your login credentials and try again.', 'error')
+                return redirect(url_for('auth.login'))
+        """
+
+        return redirect(url_for('views.home'))
+
+
+
+    """
+        user = User.query.filter_by(email=email).first()
+        #admin = AdminUser.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password, password):
             flash('Check your login credentials and try again.', 'error')
             return redirect(url_for('auth.login'))
-
-        """
         else:
-            #flash('Login successful.', 'success')
+            flash('Login successful.', 'success')
             login_user(user)
         return redirect(url_for('views.home'))
         """
-        if user:
-            login_user(user)
-        if admin:
-            login_user(admin)
-        return redirect(url_for('views.home'))
+
 
 
 @auth.route('/')
