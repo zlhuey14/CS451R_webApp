@@ -43,10 +43,11 @@ courses = [
     Course(46, 'IT 222'), Course(47, 'IT 321')
 ]
 
-
+"""
 @views.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     return render_template("dash.html", user=current_user)
+"""
 
 
 @views.route('/courses')
@@ -90,9 +91,9 @@ def gta_application_post():
             return redirect(url_for('views.gta_application'))
 
 
-@views.route('/home')
+@views.route('/', methods=['GET'])
 def home():
-    return render_template("home.html", user=current_user)
+    return render_template("home.html")
 
 
 

@@ -35,17 +35,23 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                {% if current_user.is_anonymous %}
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <span class="navbar-text">Welcome, {{current_user.email}}</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
     {% endblock %}
-    <!-- END OF THE NAVBAR CONTENT -->
+    <!-- END OF THE NAVBAR -->
 
     <!-- MAIN PAGE CONTENT TO BE DISPLAYED -->
     <div class="container">
@@ -70,5 +76,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <!-- END OF SCRIPTS -->
+
     </body>
 </html>
