@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 from . import db
 from .tables import GTAApplication
@@ -49,13 +49,23 @@ def dashboard():
     return render_template("dash.html", user=current_user)
 """
 
+@views.route('/viewCourses')
+def view_courses():
+    return render_template('viewCourses.html')
+
+@views.route('/viewApplication')
+@login_required
+def view_application():
+    return render_template('viewApplication.html')
 
 @views.route('/courses')
-def course_list():
+@login_required
+def courses():
     return render_template('courses.html', courses=courses, lab_courses=lab_courses)
 
 
 @views.route('/gtaApplication')
+@login_required
 def gta_application():
     return render_template("gtaApplication.html", user=current_user)
 
