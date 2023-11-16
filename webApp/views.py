@@ -56,7 +56,7 @@ def view_courses():
 @views.route('/viewApplication')
 @login_required
 def view_application():
-    return render_template('viewApplication.html')
+    return render_template('viewApplication.html', user=current_user)
 
 @views.route('/courses')
 @login_required

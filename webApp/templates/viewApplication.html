@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% block title %}View Application{% endblock %}
+{% block content %}
+
+<div class="view-app-container">
+    <h1>My Saved Application</h1>
+    <div class="row g-2">
+        <div class="col-md-6">
+            <label>First Name: </label>
+            <span>{{current_user.user_app.f_name}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Last Name: </label>
+            <span>{{current_user.user_app.l_name}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Student ID: </label>
+            <span>{{current_user.user_app.std_id}}</span>
+        </div>
+        <div class="col-md-6">
+            <label>Email: </label>
+            <span>{{current_user.user_app.app_email}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Current Level: </label>
+            <span>{{current_user.user_app.level}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Graduating Semester: </label>
+            <span>{{current_user.user_app.grad_semester}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>UMKC Cumulative GPA:</label>
+            <span>{{current_user.user_app.umkc_gpa}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Hours Completed at UMKC:</label>
+            <span>{{current_user.user_app.umkc_hours}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Undergraduate Degree:</label>
+            <span>{{current_user.user_app.undergrad}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Current Major: </label>
+            <span>{{current_user.user_app.major}}</span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Applying For: </label>
+            <span>{{current_user.user_app.apply_for}}</span>
+        </div>
+
+        <div class="col-md-12">
+            <label>(International Students ONLY) Are you GTA Certified? If so, which term did you complete your certification? If you have a previous degree from a US Institute, please indicate this as that waives GTA certification:</label>
+        </div>
+
+        <div class="col-md-12">
+            <label>Courses you could serve as lab instructor or grade for (ex. CS 201L/CS 5525/ECE 216, etc.):</label>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock %}
