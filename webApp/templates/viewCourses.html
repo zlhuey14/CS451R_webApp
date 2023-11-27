@@ -1,4 +1,30 @@
 {% extends "base.html" %} {% block title %}View Courses{% endblock %}
 {% block content %}
 <h1>View Open Courses</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Course ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Instructor</th>
+            <th scope="col">Position</th>
+            <th scope="col">GTA Certification Required</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+        <tr>
+            <th scope="row">{{course.id}}</th>
+            <td>{{course.c_name}}</td>
+            <td>{{course.instructor}}</td>
+            <td>{{course.position}}</td>
+            <td>{{course.gta_cert_req}}</td>
+            <td>
+                <button class="btn btn-primary">Apply</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

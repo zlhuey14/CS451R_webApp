@@ -1,86 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-            crossorigin="anonymous"
-        />
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-            crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="static/projectStyle.css"/>
-        <title>{% block title %}Base{% endblock %}</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="static/projectStyle.css" rel="stylesheet"/>
+    <title>{% block title %}Base{% endblock %}</title>
+</head>
 
-    <body>
-    <!-- NAVBAR -->
-    {% block nav_content %}
-    <nav class="navbar navbar-expand-lg navbar-blue">
-        <a class="navbar-brand" href="/">
-            <img src="static/UMKC_with name_7405C_white.png" id = "nav-logo" />
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav mr-auto">
-                {% if current_user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-item nav-link" id="courses" href="/courses">Add Courses</a>
-                </li>
-                <!--
-                <li class="nav-item">
-                    <a class="nav-item nav-link" id="gtaApp" href="/gtaApplication">Application</a>
-                </li>
-                -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Application
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/gtaApplication">Create/edit Application</a></li>
-                        <li><a class="dropdown-item" href="/viewApplication">View Application</a></li>
-                    </ul>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-item nav-link" id="viewCourses" href="/viewCourses">View Courses</a>
-                </li>
-                {% endif %}
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                {% if current_user.is_anonymous %}
-                <li class="nav-item">
-                    <a class="nav-item nav-link" id="login" href="/login">Login</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <span class="navbar-text">Welcome, {{current_user.email}}</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
-    {% endblock %}
-    <!-- END OF THE NAVBAR -->
-
-    <!-- MAIN PAGE CONTENT TO BE DISPLAYED -->
-    <div class="container">
-        {% block content %}
-        {% endblock %}
+<body>
+<!-- NAVBAR -->
+{% block nav_content %}
+<nav class="navbar navbar-expand-lg navbar-blue">
+    <a class="navbar-brand" href="/">
+        <img id="nav-logo" src="static/UMKC_with name_7405C_white.png"/>
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav me-auto">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="/viewCourses" id="viewCourses1">Add Courses</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                   role="button">
+                    Application
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/gtaApplication">Create/edit Application</a></li>
+                    <li><a class="dropdown-item" href="/viewApplication">View Application</a></li>
+                </ul>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="/viewCourses" id="viewCourses2">View Courses</a>
+            </li>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            {% if current_user.is_anonymous %}
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="/login" id="login">Login</a>
+            </li>
+            {% else %}
+            <span class="navbar-text ms-auto">
+                Welcome, {{current_user.email}}
+            </span>
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="/logout" id="logout">Logout</a>
+            </li>
+            {% endif %}
+        </ul>
     </div>
-    <!-- END OF PAGE CONTENT -->
+</nav>
+{% endblock %}
+<!-- END OF THE NAVBAR -->
 
-    <!--The scripts loaded below are part of a bootstrap that gives us extra functionality-->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    <!-- END OF SCRIPTS -->
+<!-- MAIN PAGE CONTENT TO BE DISPLAYED -->
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+<!-- END OF PAGE CONTENT -->
 
-    </body>
+<!--The scripts loaded below are part of a bootstrap that gives us extra functionality-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<!-- END OF SCRIPTS -->
+
+</body>
 </html>

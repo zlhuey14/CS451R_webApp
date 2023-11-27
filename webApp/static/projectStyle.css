@@ -51,4 +51,20 @@ width: 110.3125px;
 height: 85px;
 }
 
+.main-image-container {
+width: 100%;
+height: 400px;
+background-position: center;
+background-size: cover;
+background: url(https://www.umkc.edu/global-assets/images/Womens-Soccer-at-the-Liberty-Memorial.jpg) no-repeat bottom;
+background-attachment: fixed;
+
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+
+
 
