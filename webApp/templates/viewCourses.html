@@ -1,30 +1,73 @@
 {% extends "base.html" %} {% block title %}View Courses{% endblock %}
 {% block content %}
-<h1>View Open Courses</h1>
+<h1>View Open Courses</h1><br>
+<form class="container text-center" method="POST">
+    <div class="row row-cols-auto">
+        <div class="col">Filter by:</div>
+
+        <div class="col">
+            <label class="form-label" for="gta-filter">GTA Certification</label>
+            <select class="form-select form-select-sm" id="gta-filter" name="gta_filter">
+                <option value="default">Default</option>
+                <option value="true">Required</option>
+                <option value="false">Not Required</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <label class="form-label" for="degree-filter">Major</label>
+            <select class="form-select form-select-sm" id="degree-filter" name="degree_filter">
+                <option value="default">Default</option>
+                <option value="CS">CS</option>
+                <option value="ECE">ECE</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <label class="form-label" for="pos-filter">Position</label>
+            <select class="form-select form-select-sm" id="pos-filter" name="pos_filter">
+                <option value="default">Default</option>
+                <option value="grader">Grader</option>
+                <option value="lab instructor">Lab Instructor</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <button class="btn btn-secondary btn-sm" name="filter_button" type="submit" value="filter_button">Apply
+                Filter
+            </button>
+        </div>
+
+    </div>
+</form>
 <table class="table">
     <thead>
-        <tr>
-            <th scope="col">Course ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Instructor</th>
-            <th scope="col">Position</th>
-            <th scope="col">GTA Certification Required</th>
-            <th scope="col"></th>
-        </tr>
+    <tr>
+        <th scope="col">Course ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Instructor</th>
+        <th scope="col">Position</th>
+        <th scope="col">GTA Certification Required</th>
+        {% if current_user.is_authenticated %}
+        <th scope="col"></th>
+        {% endif %}
+    </tr>
     </thead>
     <tbody>
-        {% for course in courses %}
-        <tr>
-            <th scope="row">{{course.id}}</th>
-            <td>{{course.c_name}}</td>
-            <td>{{course.instructor}}</td>
-            <td>{{course.position}}</td>
-            <td>{{course.gta_cert_req}}</td>
-            <td>
-                <button class="btn btn-primary">Apply</button>
-            </td>
-        </tr>
-        {% endfor %}
+    {% for course in courses %}
+    <tr>
+        <th scope="row">{{course.id}}</th>
+        <td>{{course.c_name}}</td>
+        <td>{{course.instructor}}</td>
+        <td>{{course.position}}</td>
+        <td>{{course.gta_cert_req}}</td>
+        {% if current_user.is_authenticated %}
+        <td>
+            <button class="btn btn-primary">Apply</button>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
     </tbody>
 </table>
 {% endblock %}

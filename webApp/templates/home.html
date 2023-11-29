@@ -1,7 +1,9 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 {% block content %}
-<div class="main-image-container">
-    <h1>Welcome to The UMKC GTA Applicant Portal!</h1>
+<div class="container-fluid">
+    <div class="main-image-container">
+        <h1>Welcome to The UMKC GTA Applicant Portal!</h1>
+    </div>
 </div>
 <div class="container-fluid">
     <h1>Our Goal..</h1>
@@ -9,44 +11,49 @@
         To make a seamless process for our valued professors to locate quality help, and for interested applicants to
         easily view and apply for job openings.
     </p>
-</div>
-<h1>Courses Overview</h1>
-<div class="accordion accordion-flush" id="courseAccordion">
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cOne" aria-expanded="false" aria-controls="cOne">
-                CS101
-            </button>
-        </h2>
-        <div id="cOne" class="accordion-collapse collapse" data-bs-parent="courseAccordion">
-            <div class="accordion-body">
-                Placeholder text.
+</div><br>
+<div class="container-fluid">
+    <h1>Courses Overview</h1>
+    <div class="accordion accordion-flush" id="courseAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button aria-controls="cOne" aria-expanded="false" class="accordion-button collapsed"
+                        data-bs-target="#cOne" data-bs-toggle="collapse" type="button">
+                    CS101
+                </button>
+            </h2>
+            <div class="accordion-collapse collapse" data-bs-parent="courseAccordion" id="cOne">
+                <div class="accordion-body">
+                    Placeholder text.
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cTwo" aria-expanded="false" aria-controls="cTwo">
-                CS201
-            </button>
-        </h2>
-        <div id="cTwo" class="accordion-collapse collapse" data-bs-parent="courseAccordion">
-            <div class="accordion-body">
-                Placeholder text.
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button aria-controls="cTwo" aria-expanded="false" class="accordion-button collapsed"
+                        data-bs-target="#cTwo" data-bs-toggle="collapse" type="button">
+                    CS201
+                </button>
+            </h2>
+            <div class="accordion-collapse collapse" data-bs-parent="courseAccordion" id="cTwo">
+                <div class="accordion-body">
+                    Placeholder text.
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cThree" aria-expanded="false" aria-controls="cThree">
-                CS303
-            </button>
-        </h2>
-        <div id="cThree" class="accordion-collapse collapse" data-bs-parent="courseAccordion">
-            <div class="accordion-body">
-                Placeholder text.
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button aria-controls="cThree" aria-expanded="false" class="accordion-button collapsed"
+                        data-bs-target="#cThree" data-bs-toggle="collapse" type="button">
+                    CS303
+                </button>
+            </h2>
+            <div class="accordion-collapse collapse" data-bs-parent="courseAccordion" id="cThree">
+                <div class="accordion-body">
+                    Placeholder text.
+                </div>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 {% block title %}Application Form{% endblock %}
 {% block content %}
 <!-- MAIN CONTENT -->
-<div class="gta-app-container">
+<div class="container-fluid">
     <h1>GTA Application Form</h1>
     <form method="POST" class="row g-2">
         <div class="col-md-6">
@@ -26,7 +26,7 @@
 
         <div class="col-md-6">
             <label for="level" class="form-label">Current Level: *</label>
-            <select name="level" class="form-control" id="level" required>
+            <select name="level" class="form-select" id="level" required>
                 <option selected>Choose...</option>
                 <option value="bs">BS</option>
                 <option value="ms">MS</option>
@@ -56,7 +56,7 @@
 
         <div class="col-md-6">
             <label for="major" class="form-label">Current Major: *</label>
-            <select name="major" class="form-control" id="major" required>
+            <select name="major" class="form-select" id="major" required>
                 <option selected>Choose...</option>
                 <option value="cs">CS</option>
                 <option value="it">IT</option>
@@ -67,7 +67,7 @@
 
         <div class="col-md-12">
             <label for="apply-for" class="form-label">Applying For: *</label>
-            <select name="apply_for" class="form-control" id="apply-for" required>
+            <select name="apply_for" class="form-select" id="apply-for" required>
                 <option selected>Choose...</option>
                 <option value="grader">Grader</option>
                 <option value="lab_instructor">Lab Instructor</option>
