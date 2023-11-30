@@ -27,16 +27,18 @@ def create_app():
     from .tables import User, GTAApplication
 
     with app.app_context():
-        # db.drop_all()
-        # db.session.commit()
+        #db.drop_all()
+        #db.session.commit()
+
         db.create_all()
-        test_email = 'cs451r.admin@umsystem.edu'
-        test_pass = '112233'
+        test_email = 'cs451r@umsystem.edu'
+        test_pass = '12345'
         test_user = User.query.filter_by(email=test_email).first()
         if not test_user:
-            user = User(email=test_email, password=generate_password_hash(test_pass, method='pbkdf2'), is_admin=True)
+            user = User(email=test_email, password=generate_password_hash(test_pass, method='pbkdf2'), is_admin=False)
             db.session.add(user)
             db.session.commit()
+
 
     @login_manager.user_loader
     def load_user(user_id):

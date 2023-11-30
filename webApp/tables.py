@@ -16,7 +16,6 @@ class GTAApplication(db.Model):
     undergrad = db.Column(db.String(20))
     major = db.Column(db.String(4))
     apply_for = db.Column(db.String(20))
-    app_submission = db.relationship('Submissions', backref='gta_application')
 
 
 class User(db.Model, UserMixin):
@@ -25,6 +24,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200))
     is_admin = db.Column(db.Boolean)
     user_app = db.relationship('GTAApplication', uselist=False, backref='user')
+    submission = db.relationship('Submissions', backref='user')
 
 
 class Course(db.Model):
@@ -33,10 +33,13 @@ class Course(db.Model):
     instructor = db.Column(db.String(100))
     position = db.Column(db.String(10))
     gta_cert_req = db.Column(db.Boolean)
+    class_submission = db.relationship('Submissions', backref='course')
 
 
 class Submissions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    app_id = db.Column(db.Integer, db.ForeignKey('gta_application.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
+    status = db.Column(db.String(100))
 
 

@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash, get_flashed_messages, message_flashed
 from flask_login import current_user, login_required
 from sqlalchemy import *
 
 from . import db
-from .tables import GTAApplication, Course
+from .tables import GTAApplication, Course, Submissions, User
 
 # Blueprints have a bunch of routes and URLs stored inside of it
 # It is a way for us to separate our app out
@@ -33,65 +33,103 @@ def courses_filter():
     filterChoice1 = request.form.get('gta_filter')
     filterChoice2 = request.form.get('degree_filter')
     filterChoice3 = request.form.get('pos_filter')
+    print('filter 1: ', filterChoice1)
+    print('filter 2: ', filterChoice2)
+    print('filter 3: ', filterChoice3)
     deg_search = "%{}%".format(filterChoice2)
     pos_search = "%{}%".format(filterChoice3)
     courses = Course.query.all()
 
     if request.method == 'POST':
 
-        if filterChoice1 == 'true':
-            if filterChoice2 == 'default':
-                if filterChoice3 == 'default':
-                    courses = Course.query.filter_by(gta_cert_req=True)
-                else:
-                    courses = Course.query.filter(and_(Course.gta_cert_req==True,
-                                                  Course.position.like(pos_search)))
-            elif filterChoice2 != 'default':
-                if filterChoice3 == 'default':
-                    courses = Course.query.filter(and_(Course.gta_cert_req==True,
-                                                       Course.c_name.like(deg_search)))
-                else:
-                    courses = Course.query.filter(and_(Course.gta_cert_req == True,
-                                                  Course.c_name.like(deg_search),
-                                                  Course.position.like(pos_search)))
-        elif filterChoice1 == 'false':
-            if filterChoice2 == 'default':
-                if filterChoice3 == 'default':
-                    courses = Course.query.filter_by(gta_cert_req=False)
-                else:
-                    courses = Course.query.filter(and_(Course.gta_cert_req==False,
-                                                  Course.position.like(pos_search)))
-            elif filterChoice2 != 'default':
-                if filterChoice3 == 'default':
-                    courses = Course.query.filter(and_(Course.gta_cert_req==False,
-                                                       Course.c_name.like(deg_search)))
-                else:
-                    courses = Course.query.filter(and_(Course.gta_cert_req == False,
-                                                  Course.c_name.like(deg_search),
-                                                  Course.position.like(pos_search)))
+        if request.form.get('apply_button'):
+            # THESE 3 LINES ARE FOR TESTING PURPOSES
+            data = request.form.get('apply_button')
+            print('Course ID: ', data)
+            print('Current User ID: ', current_user.id)
+            #
 
-        if filterChoice1 == 'default' and filterChoice2 == 'default' and filterChoice3 == 'default':
-            courses = Course.query.all()
+            hasApp = GTAApplication.query.filter_by(user_id=current_user.id).first()
+            print(hasApp)
+            if hasApp:
+                submission = Submissions(user_id=current_user.id, course_id=int(request.form.get('apply_button')),
+                                         status='pending')
+                db.session.add(submission)
+                db.session.commit()
+                flash('Successfully submitted.', 'success')
+                print('submitted')
+            else:
+                flash('Please submit an application before applying.', 'error')
+                print('No application on file')
 
-        """
-        if filterChoice1 == 'true':
-            if filterChoice2 == 'default':
-                courses = Course.query.filter_by(gta_cert_req=True)
-            else:
-                courses = Course.query.filter(and_(Course.gta_cert_req == True, Course.c_name.like(deg_search)))
-        elif filterChoice1 == 'false':
-            if filterChoice2 == 'default':
-                courses = Course.query.filter_by(gta_cert_req=False)
-            else:
-                courses = Course.query.filter(and_(Course.gta_cert_req == False, Course.c_name.like(deg_search)))
+        elif request.form.get('button') == 'filter':
+            if filterChoice1 == 'true':
+                if filterChoice2 == 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter_by(gta_cert_req=True)
+                    else:
+                        courses = Course.query.filter(and_(Course.gta_cert_req == True,
+                                                           Course.position.like(pos_search)))
+                elif filterChoice2 != 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter(and_(Course.gta_cert_req == True,
+                                                           Course.c_name.like(deg_search)))
+                    else:
+                        courses = Course.query.filter(and_(Course.gta_cert_req == True,
+                                                           Course.c_name.like(deg_search),
+                                                           Course.position.like(pos_search)))
+            elif filterChoice1 == 'false':
+                if filterChoice2 == 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter_by(gta_cert_req=False)
+                    else:
+                        courses = Course.query.filter(and_(Course.gta_cert_req == False,
+                                                           Course.position.like(pos_search)))
+                elif filterChoice2 != 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter(and_(Course.gta_cert_req == False,
+                                                           Course.c_name.like(deg_search)))
+                    else:
+                        courses = Course.query.filter(and_(Course.gta_cert_req == False,
+                                                           Course.c_name.like(deg_search),
+                                                           Course.position.like(pos_search)))
+
+            elif filterChoice1 == 'default':
+                if filterChoice2 == 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.all()
+                    else:
+                        courses = Course.query.filter(Course.position.like(pos_search))
+
+                elif filterChoice2 != 'defualt':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter(Course.c_name.like(deg_search))
+                    else:
+                        courses = Course.query.filter(and_(Course.c_name.like(deg_search),
+                                                           Course.position.like(pos_search)))
+
+            if filterChoice1 == 'default' and filterChoice2 == 'default' and filterChoice3 == 'default':
+                courses = Course.query.all()
+
+    """
+    if filterChoice1 == 'true':
+        if filterChoice2 == 'default':
+            courses = Course.query.filter_by(gta_cert_req=True)
         else:
-            courses = Course.query.filter(Course.c_name.like(deg_search))
+            courses = Course.query.filter(and_(Course.gta_cert_req == True, Course.c_name.like(deg_search)))
+    elif filterChoice1 == 'false':
+        if filterChoice2 == 'default':
+            courses = Course.query.filter_by(gta_cert_req=False)
+        else:
+            courses = Course.query.filter(and_(Course.gta_cert_req == False, Course.c_name.like(deg_search)))
+    else:
+        courses = Course.query.filter(Course.c_name.like(deg_search))
 
-        if filterChoice1 == 'default' and filterChoice2 == 'default':
-            courses = Course.query.all()
-        """
+    if filterChoice1 == 'default' and filterChoice2 == 'default':
+        courses = Course.query.all()
+    """
 
-        return render_template('viewCourses.html', courses=courses)
+    return render_template('viewCourses.html', courses=courses)
 
 
 @views.route('/viewApplication')

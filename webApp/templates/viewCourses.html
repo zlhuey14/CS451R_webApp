@@ -1,5 +1,38 @@
 {% extends "base.html" %} {% block title %}View Courses{% endblock %}
 {% block content %}
+<!--
+<style>
+    DIV.table
+    {
+        display:table;
+    }
+    FORM.tr, DIV.tr
+    {
+        display:table-row;
+    }
+    SPAN.td
+    {
+        display:table-cell;
+    }
+</style>
+-->
+{% with messages = get_flashed_messages(category_filter=["error"]) %}
+{% if messages %}
+<div class="flashes-error">
+    <p>{{ messages[0] }} </p>
+</div>
+{% endif %}
+{% endwith %}
+
+{% with messages = get_flashed_messages(category_filter=["success"]) %}
+{% if messages %}
+<div class="flashes-success">
+    <p>{{ messages[0] }} </p>
+</div>
+{% endif %}
+{% endwith %}
+
+
 <h1>View Open Courses</h1><br>
 <form class="container text-center" method="POST">
     <div class="row row-cols-auto">
@@ -33,13 +66,40 @@
         </div>
 
         <div class="col">
-            <button class="btn btn-secondary btn-sm" name="filter_button" type="submit" value="filter_button">Apply
+            <button class="btn btn-secondary btn-sm" name="button" type="submit" value="filter">Apply
                 Filter
             </button>
         </div>
 
     </div>
-</form>
+</form><br>
+<!--
+<div class="table">
+    <div class="tr">
+        <span class="td"><h5>Course ID</h5></span>
+        <span class="td"><h5>Name</h5></span>
+        <span class="td"><h5>Instructor</h5></span>
+        <span class="td"><h5>Position</h5></span>
+        <span class="td"><h5>GTA Certification Required</h5></span>
+        {% if current_user.is_authenticated %}
+        <span class="td"><h5>Action</h5></span>
+        {% endif %}
+    </div>
+    {% for course in courses %}
+    <form class="tr" method="POST" style="background-color:LightGrey">
+        <span class="td">{{course.id}}</span>
+        <span class="td">{{course.c_name}}</span>
+        <span class="td">{{course.instructor}}</span>
+        <span class="td">{{course.position}}</span>
+        <span class="td">{{course.gta_cert_req}}</span>
+        {% if current_user.is_authenticated %}
+        <button class="btn btn-primary" name="apply_button" value="{{course.id}}">Apply</button>
+        {% endif %}
+    </form><br>
+    {% endfor %}
+</div>
+-->
+
 <table class="table">
     <thead>
     <tr>
@@ -49,25 +109,28 @@
         <th scope="col">Position</th>
         <th scope="col">GTA Certification Required</th>
         {% if current_user.is_authenticated %}
-        <th scope="col"></th>
+        <th scope="col">Action</th>
         {% endif %}
     </tr>
     </thead>
     <tbody>
     {% for course in courses %}
-    <tr>
-        <th scope="row">{{course.id}}</th>
-        <td>{{course.c_name}}</td>
-        <td>{{course.instructor}}</td>
-        <td>{{course.position}}</td>
-        <td>{{course.gta_cert_req}}</td>
-        {% if current_user.is_authenticated %}
-        <td>
-            <button class="btn btn-primary">Apply</button>
-        </td>
-        {% endif %}
-    </tr>
+    <form method="POST">
+        <tr>
+            <th scope="row">{{course.id}}</th>
+            <td>{{course.c_name}}</td>
+            <td>{{course.instructor}}</td>
+            <td>{{course.position}}</td>
+            <td>{{course.gta_cert_req}}</td>
+            {% if current_user.is_authenticated %}
+            <td>
+                <button class="btn btn-primary" name="apply_button" value="{{course.id}}">Apply</button>
+            </td>
+            {% endif %}
+        </tr>
+    </form>
     {% endfor %}
     </tbody>
 </table>
+
 {% endblock %}
