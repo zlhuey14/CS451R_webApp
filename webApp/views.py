@@ -10,59 +10,53 @@ from .tables import GTAApplication, Course, Submissions, User
 
 views = Blueprint('views', __name__)
 
-"""
-@views.route('/dashboard', methods=['GET', 'POST'])
-def dashboard():
-    return render_template("dash.html", user=current_user)
-"""
-
-
 @views.route('/adminView')
 @login_required
 def admin_view():
-    return render_template('adminView.html')
+    return render_template('adminView.html', submissions_join=db.session.query(Submissions, User, Course, GTAApplication).\
+            select_from(Submissions).join(User).join(Course).join(GTAApplication).all())
+
+@views.route('/adminView', methods=['POST'])
+@login_required
+def admin_action():
+    if request.method == 'POST':
+        if request.form.get('approve'):
+            submission_id = request.form.get('approve')
+            print(submission_id)
+            submission_status_update = Submissions.query.get_or_404(submission_id)
+            submission_status_update.status = 'Approved'
+            db.session.commit()
+        elif request.form.get('deny'):
+            submission_id = request.form.get('deny')
+            print(submission_id)
+            submission_status_update = Submissions.query.get_or_404(submission_id)
+            submission_status_update.status = 'Denied'
+            db.session.commit()
+
+    return render_template('adminView.html', submissions_join=db.session.query(Submissions, User, Course, GTAApplication).\
+            select_from(Submissions).join(User).join(Course).join(GTAApplication).all())
 
 
-@views.route('/viewCourses')
-def view_courses():
-    return render_template('viewCourses.html', courses=Course.query.all())
 
-
-@views.route('/viewCourses', methods=['GET', 'POST'])
-def courses_filter():
-    filterChoice1 = request.form.get('gta_filter')
-    filterChoice2 = request.form.get('degree_filter')
-    filterChoice3 = request.form.get('pos_filter')
-    print('filter 1: ', filterChoice1)
-    print('filter 2: ', filterChoice2)
-    print('filter 3: ', filterChoice3)
-    deg_search = "%{}%".format(filterChoice2)
-    pos_search = "%{}%".format(filterChoice3)
+@views.route('/editCourses', methods=['POST'])
+def edit_courses_filter():
     courses = Course.query.all()
 
     if request.method == 'POST':
 
-        if request.form.get('apply_button'):
-            # THESE 3 LINES ARE FOR TESTING PURPOSES
-            data = request.form.get('apply_button')
-            print('Course ID: ', data)
-            print('Current User ID: ', current_user.id)
-            #
-
-            hasApp = GTAApplication.query.filter_by(user_id=current_user.id).first()
-            print(hasApp)
-            if hasApp:
-                submission = Submissions(user_id=current_user.id, course_id=int(request.form.get('apply_button')),
-                                         status='pending')
-                db.session.add(submission)
-                db.session.commit()
-                flash('Successfully submitted.', 'success')
-                print('submitted')
-            else:
-                flash('Please submit an application before applying.', 'error')
-                print('No application on file')
+        if request.form.get('remove_btn'):
+            print('doesnt work yet')
 
         elif request.form.get('button') == 'filter':
+            filterChoice1 = request.form.get('gta_filter')
+            filterChoice2 = request.form.get('degree_filter')
+            filterChoice3 = request.form.get('pos_filter')
+            print('filter 1: ', filterChoice1)
+            print('filter 2: ', filterChoice2)
+            print('filter 3: ', filterChoice3)
+            deg_search = "%{}%".format(filterChoice2)
+            pos_search = "%{}%".format(filterChoice3)
+
             if filterChoice1 == 'true':
                 if filterChoice2 == 'default':
                     if filterChoice3 == 'default':
@@ -111,23 +105,102 @@ def courses_filter():
             if filterChoice1 == 'default' and filterChoice2 == 'default' and filterChoice3 == 'default':
                 courses = Course.query.all()
 
-    """
-    if filterChoice1 == 'true':
-        if filterChoice2 == 'default':
-            courses = Course.query.filter_by(gta_cert_req=True)
-        else:
-            courses = Course.query.filter(and_(Course.gta_cert_req == True, Course.c_name.like(deg_search)))
-    elif filterChoice1 == 'false':
-        if filterChoice2 == 'default':
-            courses = Course.query.filter_by(gta_cert_req=False)
-        else:
-            courses = Course.query.filter(and_(Course.gta_cert_req == False, Course.c_name.like(deg_search)))
-    else:
-        courses = Course.query.filter(Course.c_name.like(deg_search))
+    return render_template('editCourses.html', courses=courses)
 
-    if filterChoice1 == 'default' and filterChoice2 == 'default':
-        courses = Course.query.all()
-    """
+@views.route('/editCourses')
+@login_required
+def edit_courses():
+    return render_template('editCourses.html', courses=Course.query.all())
+
+
+@views.route('/viewCourses')
+def view_courses():
+    return render_template('viewCourses.html', courses=Course.query.all())
+
+
+@views.route('/viewCourses', methods=['GET', 'POST'])
+def courses_filter():
+    courses = Course.query.all()
+
+    if request.method == 'POST':
+
+        if request.form.get('apply_button'):
+            # THESE 3 LINES ARE FOR TESTING PURPOSES
+            data = request.form.get('apply_button')
+            print('Course ID: ', data)
+            print('Current User ID: ', current_user.id)
+            #
+
+            hasApp = GTAApplication.query.filter_by(user_id=current_user.id).first()
+            print(hasApp)
+            if hasApp:
+                submission = Submissions(user_id=current_user.id, course_id=int(request.form.get('apply_button')),
+                                         status='Pending..')
+                db.session.add(submission)
+                db.session.commit()
+                flash('Successfully submitted.', 'success')
+                print('submitted')
+            else:
+                flash('Please submit an application before applying.', 'error')
+                print('No application on file')
+
+        elif request.form.get('button') == 'filter':
+            filterChoice1 = request.form.get('gta_filter')
+            filterChoice2 = request.form.get('degree_filter')
+            filterChoice3 = request.form.get('pos_filter')
+            print('filter 1: ', filterChoice1)
+            print('filter 2: ', filterChoice2)
+            print('filter 3: ', filterChoice3)
+            deg_search = "%{}%".format(filterChoice2)
+            pos_search = "%{}%".format(filterChoice3)
+
+            if filterChoice1 == 'true':
+                if filterChoice2 == 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter_by(gta_cert_req=True)
+                    else:
+                        courses = Course.query.filter(and_(Course.gta_cert_req == True,
+                                                           Course.position.like(pos_search)))
+                elif filterChoice2 != 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter(and_(Course.gta_cert_req == True,
+                                                           Course.c_name.like(deg_search)))
+                    else:
+                        courses = Course.query.filter(and_(Course.gta_cert_req == True,
+                                                           Course.c_name.like(deg_search),
+                                                           Course.position.like(pos_search)))
+            elif filterChoice1 == 'false':
+                if filterChoice2 == 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter_by(gta_cert_req=False)
+                    else:
+                        courses = Course.query.filter(and_(Course.gta_cert_req == False,
+                                                           Course.position.like(pos_search)))
+                elif filterChoice2 != 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter(and_(Course.gta_cert_req == False,
+                                                           Course.c_name.like(deg_search)))
+                    else:
+                        courses = Course.query.filter(and_(Course.gta_cert_req == False,
+                                                           Course.c_name.like(deg_search),
+                                                           Course.position.like(pos_search)))
+
+            elif filterChoice1 == 'default':
+                if filterChoice2 == 'default':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.all()
+                    else:
+                        courses = Course.query.filter(Course.position.like(pos_search))
+
+                elif filterChoice2 != 'defualt':
+                    if filterChoice3 == 'default':
+                        courses = Course.query.filter(Course.c_name.like(deg_search))
+                    else:
+                        courses = Course.query.filter(and_(Course.c_name.like(deg_search),
+                                                           Course.position.like(pos_search)))
+
+            if filterChoice1 == 'default' and filterChoice2 == 'default' and filterChoice3 == 'default':
+                courses = Course.query.all()
 
     return render_template('viewCourses.html', courses=courses)
 
@@ -138,10 +211,11 @@ def view_application():
     return render_template('viewApplication.html', user=current_user)
 
 
-@views.route('/courses')
+@views.route('/viewSubmissions')
 @login_required
-def courses():
-    return render_template('courses.html', courses=courses, lab_courses=lab_courses)
+def view_submissions():
+    return render_template('viewSubmissions.html', user=current_user, student_submissions=db.session.query(Submissions, User, Course).\
+            select_from(Submissions).join(User).filter(User.id == current_user.id).join(Course).all())
 
 
 @views.route('/gtaApplication')

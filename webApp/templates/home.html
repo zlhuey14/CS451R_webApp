@@ -1,5 +1,13 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 {% block content %}
+{% with messages = get_flashed_messages(category_filter=["success"]) %}
+{% if messages %}
+<div class="flashes-success">
+    <p>{{ messages[0] }} </p>
+</div>
+{% endif %}
+{% endwith %}
+
 <div class="container-fluid">
     <div class="main-image-container">
         <h1>Welcome to The UMKC GTA Applicant Portal!</h1>
@@ -12,7 +20,7 @@
         easily view and apply for job openings.
     </p>
 </div><br>
-<div class="container-fluid">
+<div class="container-fluid" style="border-top: 1px solid #cecece;">
     <h1 class="display-2">Courses Overview</h1>
     <div class="accordion accordion-flush" id="courseAccordion">
         <div class="accordion-item">

@@ -19,7 +19,7 @@ def login_post():
             flash('Check your login credentials and try again.', 'error')
             return redirect(url_for('auth.login'))
         else:
-            # flash('Login successful.', 'success')
+            flash('Login successful.', 'success')
             login_user(user)
 
         return redirect(url_for('views.home'))
@@ -34,4 +34,5 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash('Logout successful.', 'success')
     return redirect(url_for('views.home'))

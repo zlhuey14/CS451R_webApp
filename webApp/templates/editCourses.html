@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block title %}View Courses{% endblock %}
 {% block content %}
+
 {% with messages = get_flashed_messages(category_filter=["error"]) %}
 {% if messages %}
 <div class="flashes-error">
@@ -16,9 +17,9 @@
 {% endif %}
 {% endwith %}
 
-<div class="container-fluid" style="width: 80%">
+<div class="container-fluid" style="width: 80%;">
     <br><br>
-    <h1>View Open Courses</h1><br>
+    <h1>Edit Open Courses</h1><br>
     <form class="container text-center" method="POST">
         <div class="row row-cols-auto">
             <div class="col">Filter by:</div>
@@ -60,32 +61,7 @@
     </form>
     <br>
 </div>
-<!--
-<div class="table">
-    <div class="tr">
-        <span class="td"><h5>Course ID</h5></span>
-        <span class="td"><h5>Name</h5></span>
-        <span class="td"><h5>Instructor</h5></span>
-        <span class="td"><h5>Position</h5></span>
-        <span class="td"><h5>GTA Certification Required</h5></span>
-        {% if current_user.is_authenticated %}
-        <span class="td"><h5>Action</h5></span>
-        {% endif %}
-    </div>
-    {% for course in courses %}
-    <form class="tr" method="POST" style="background-color:LightGrey">
-        <span class="td">{{course.id}}</span>
-        <span class="td">{{course.c_name}}</span>
-        <span class="td">{{course.instructor}}</span>
-        <span class="td">{{course.position}}</span>
-        <span class="td">{{course.gta_cert_req}}</span>
-        {% if current_user.is_authenticated %}
-        <button class="btn btn-primary" name="apply_button" value="{{course.id}}">Apply</button>
-        {% endif %}
-    </form><br>
-    {% endfor %}
-</div>
--->
+
 <div class="container-fluid" style="width: 80%">
     <table class="table">
         <thead>
@@ -109,9 +85,9 @@
                 <td>{{course.instructor}}</td>
                 <td>{{course.position}}</td>
                 <td>{{course.gta_cert_req}}</td>
-                {% if current_user.is_authenticated %}
+                {% if current_user.is_authenticated and current_user.is_admin %}
                 <td>
-                    <button class="btn btn-primary" name="apply_button" value="{{course.id}}">Apply</button>
+                    <button class="btn btn-danger" name="remove_btn" value="remove">Remove</button>
                 </td>
                 {% endif %}
             </tr>

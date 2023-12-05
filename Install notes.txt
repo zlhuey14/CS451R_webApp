@@ -1,0 +1,5 @@
+Install notes:
+1. In Terminal:
+	pip install flask
+	pip install flask-login
+	pip install flask-sqlalchemy

@@ -43,3 +43,6 @@ class Submissions(db.Model):
     status = db.Column(db.String(100))
 
 
+
+
+

@@ -19,9 +19,25 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav me-auto">
             {% if current_user.is_authenticated and current_user.is_admin == False %}
+            <!--
             <li class="nav-item">
                 <a class="nav-item nav-link" href="/viewCourses" id="viewCourses1">Add Courses</a>
             </li>
+            -->
+            <!--NEW-->
+
+            <li class="nav-item dropdown">
+                <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                   role="button">
+                    Courses
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/viewCourses">Add Courses</a></li>
+                    <li><a class="dropdown-item" href="/viewSubmissions">View Submissions</a></li>
+                </ul>
+            </li>
+
+            <!--NEW-->
             <li class="nav-item dropdown">
                 <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
                    role="button">
@@ -34,7 +50,7 @@
             </li>
             {% elif current_user.is_authenticated and current_user.is_admin == True %}
             <li class="nav-item">
-                <a class="nav-item nav-link" href="" id="editCourses">Edit Courses</a>
+                <a class="nav-item nav-link" href="/editCourses" id="editCourses">Edit Courses</a>
             </li>
             <li class="nav-item">
                 <a class="nav-item nav-link" href="/adminView" id="adminView">Admin View</a>
@@ -70,6 +86,11 @@
     {% endblock %}
 </div>
 <!-- END OF PAGE CONTENT -->
+
+<!-- FOOTER START -->
+
+<!-- FOOTER END -->
+
 
 <!--The scripts loaded below are part of a bootstrap that gives us extra functionality-->
 <script crossorigin="anonymous"

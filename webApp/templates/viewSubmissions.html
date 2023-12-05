@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block title %}View Application{% endblock %}
+{% block content %}
+
+<br><br>
+<div class="container-fluid" style="width: 80%">
+    <h1>My Submissions</h1><br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Submission ID</th>
+            <th scope="col">Course ID</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Instructor</th>
+            <th scope="col">Position</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for submission, user, course in student_submissions %}
+        <tr>
+            <th scope="row">{{submission.id}}</th>
+            <td>{{course.id}}</td>
+            <td>{{course.c_name}}</td>
+            <td>{{course.instructor}}</td>
+            <td>{{course.position}}</td>
+            {% if submission.status == 'Approved' %}
+            <td style="color:#228B22"><b>{{submission.status}}</b></td>
+            {% elif submission.status == 'Denied' %}
+            <td style="color:#8B0000"><b>{{submission.status}}</b></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

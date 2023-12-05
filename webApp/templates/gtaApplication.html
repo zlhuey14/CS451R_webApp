@@ -2,8 +2,11 @@
 {% block title %}Application Form{% endblock %}
 {% block content %}
 <!-- MAIN CONTENT -->
-<div class="container-fluid">
+<br><br><div class="container-fluid" style="width: 80%">
     <h1>GTA Application Form</h1>
+    <div class="alert alert-warning" role="alert">
+        Note: Fields followed by an '*' are required to submit an application.
+    </div>
     <form method="POST" class="row g-2">
         <div class="col-md-6">
             <label for="first-name" class="form-label">First Name: *</label>
@@ -28,9 +31,9 @@
             <label for="level" class="form-label">Current Level: *</label>
             <select name="level" class="form-select" id="level" required>
                 <option selected>Choose...</option>
-                <option value="bs">BS</option>
-                <option value="ms">MS</option>
-                <option value="phd">PhD</option>
+                <option value="BS">BS</option>
+                <option value="MS">MS</option>
+                <option value="PhD">PhD</option>
             </select>
         </div>
 
@@ -58,10 +61,10 @@
             <label for="major" class="form-label">Current Major: *</label>
             <select name="major" class="form-select" id="major" required>
                 <option selected>Choose...</option>
-                <option value="cs">CS</option>
-                <option value="it">IT</option>
-                <option value="ece">ECE</option>
-                <option value="ee">EE</option>
+                <option value="CS">CS</option>
+                <option value="IE">IT</option>
+                <option value="ECE">ECE</option>
+                <option value="EE">EE</option>
             </select>
         </div>
 
@@ -69,9 +72,9 @@
             <label for="apply-for" class="form-label">Applying For: *</label>
             <select name="apply_for" class="form-select" id="apply-for" required>
                 <option selected>Choose...</option>
-                <option value="grader">Grader</option>
-                <option value="lab_instructor">Lab Instructor</option>
-                <option value="both">Both</option>
+                <option value="Grader">Grader</option>
+                <option value="Lab Instructor">Lab Instructor</option>
+                <option value="Both">Both</option>
             </select>
         </div>
 

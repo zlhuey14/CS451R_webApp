@@ -1,4 +1,125 @@
 {% extends "base.html" %} {% block title %}Admin View{% endblock %}
 {% block content %}
-<h2>Nothing here yet.</h2>
+<h1>GTA Submissions</h1>
+
+<div class="container-fluid" style="margin-top: 32px">
+    <h2>Pending Submissions</h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Submission ID</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Student UMKC ID</th>
+            <th scope="col">Applicant Email</th>
+            <th scope="col">Level</th>
+            <th scope="col">Major</th>
+            <th scope="col">Preferred Position</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for submissions, user, course, gta_application in submissions_join %}
+        <form method="POST">
+            {% if submissions.status == 'Pending..' %}
+            <tr>
+                <td>{{submissions.id}}</td>
+                <td>{{course.c_name}}</td>
+                <td>{{gta_application.f_name}}</td>
+                <td>{{gta_application.l_name}}</td>
+                <td>{{gta_application.std_id}}</td>
+                <td>{{gta_application.app_email}}</td>
+                <td>{{gta_application.level}}</td>
+                <td>{{gta_application.major}}</td>
+                <td>{{gta_application.apply_for}}</td>
+                {% if current_user.is_authenticated and current_user.is_admin %}
+                <td>
+                    <button class="btn btn-success" name="approve" value="{{submissions.id}}">Approve</button>
+                    <button class="btn btn-danger" name="deny" value="{{submissions.id}}">Deny</button>
+                </td>
+                {% endif %}
+                {% endif %}
+            </tr>
+        </form>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container-fluid" style="margin-top: 32px">
+    <h2>Approved Submissions</h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Submission ID</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Student UMKC ID</th>
+            <th scope="col">Applicant Email</th>
+            <th scope="col">Level</th>
+            <th scope="col">Major</th>
+            <th scope="col">Preferred Position</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for submissions, user, course, gta_application in submissions_join %}
+        <form method="POST">
+            {% if submissions.status == 'Approved' %}
+            <tr>
+                <td>{{submissions.id}}</td>
+                <td>{{course.c_name}}</td>
+                <td>{{gta_application.f_name}}</td>
+                <td>{{gta_application.l_name}}</td>
+                <td>{{gta_application.std_id}}</td>
+                <td>{{gta_application.app_email}}</td>
+                <td>{{gta_application.level}}</td>
+                <td>{{gta_application.major}}</td>
+                <td>{{gta_application.apply_for}}</td>
+            </tr>
+            {% endif %}
+        </form>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container-fluid" style="margin-top: 32px">
+    <h2>Denied Submissions</h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Submission ID</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Student UMKC ID</th>
+            <th scope="col">Applicant Email</th>
+            <th scope="col">Level</th>
+            <th scope="col">Major</th>
+            <th scope="col">Preferred Position</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for submissions, user, course, gta_application in submissions_join %}
+        <form method="POST">
+            {% if submissions.status == 'Denied' %}
+            <tr>
+                <td>{{submissions.id}}</td>
+                <td>{{course.c_name}}</td>
+                <td>{{gta_application.f_name}}</td>
+                <td>{{gta_application.l_name}}</td>
+                <td>{{gta_application.std_id}}</td>
+                <td>{{gta_application.app_email}}</td>
+                <td>{{gta_application.level}}</td>
+                <td>{{gta_application.major}}</td>
+                <td>{{gta_application.apply_for}}</td>
+            </tr>
+            {% endif %}
+        </form>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
