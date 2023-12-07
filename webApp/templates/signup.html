@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Login{% endblock %}
+{% extends "base.html" %} {% block title %}signUp{% endblock %}
 {% block nav_content %}
 
 {% with messages = get_flashed_messages(category_filter=["success"]) %}
@@ -17,21 +17,6 @@
 {% endif %}
 {% endwith %}
 
-<!--
-<div class="form-container">
-    <h1>Login</h1>
-    <form method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required><br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br>
-        <input type="checkbox" id="remember-me" name="remember-me">
-        <label for="remember-me">Remember Me</label><br>
-        <button type="submit">Log In</button>
-    </form>
-    <a href="forgot_password.html">Forgot Password?</a>
-</div>
--->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -82,29 +67,23 @@
         }
     </style>
     <div class="form-container">
-        <h1>Login</h1>
+        <h1>Sign Up</h1>
         <form method="POST">
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username" required>
+                <label for="email">Enter Email: </label>
+                <input type="email" name="email" id="email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password">Enter 5 Character Password:</label>
                 <input type="password" name="password" id="password" required>
             </div>
-            <!--
-            <div class="form-group remember-me">
-                <input type="checkbox" id="remember-me" name="remember-me">
-                <label for="remember-me">Remember Me</label>
+            <div class="form-group">
+                <label for="password-check">Re-enter Password:</label>
+                <input type="password" name="password_check" id="password-check" required>
             </div>
-            -->
-            <button type="submit" class="btn-login">Log In</button>
+
+            <button type="submit" class="btn-login">Sign Up</button>
         </form>
-        <!--
-        <div class="forgot-password">
-            <a href="forgot_password.html">Forgot Password?</a>
-        </div>
-        -->
     </div>
 {% endblock %}
 {% block footer %}

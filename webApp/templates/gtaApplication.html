@@ -2,34 +2,35 @@
 {% block title %}Application Form{% endblock %}
 {% block content %}
 <!-- MAIN CONTENT -->
-<br><br><div class="container-fluid" style="width: 80%">
+{% if not has_app %}
+<div class="container-fluid" style="width: 80%; margin-top: 32px;">
     <h1>GTA Application Form</h1>
     <div class="alert alert-warning" role="alert">
         Note: Fields followed by an '*' are required to submit an application.
     </div>
-    <form method="POST" class="row g-2">
+    <form class="row g-2" method="POST">
         <div class="col-md-6">
-            <label for="first-name" class="form-label">First Name: *</label>
-            <input type="text" class="form-control" name="first_name" id="first-name" required>
+            <label class="form-label" for="first-name">First Name: *</label>
+            <input class="form-control" id="first-name" name="first_name" required type="text">
         </div>
 
         <div class="col-md-6">
-            <label for="last-name" class="form-label">Last Name: *</label>
-            <input type="text" class="form-control" name="last_name" id="last-name" required>
+            <label class="form-label" for="last-name">Last Name: *</label>
+            <input class="form-control" id="last-name" name="last_name" required type="text">
         </div>
 
         <div class="col-md-6">
-            <label for="std-id" class="form-label">Student ID: *</label>
-            <input type="number" class="form-control" name="std_id" id="std-id" required>
+            <label class="form-label" for="std-id">Student ID: *</label>
+            <input class="form-control" id="std-id" name="std_id" required type="number">
         </div>
         <div class="col-md-6">
-            <label for="app-email" class="form-label">Email: *</label>
-            <input type="email" class="form-control" name="app_email" id="app-email" required>
+            <label class="form-label" for="app-email">Email: *</label>
+            <input class="form-control" id="app-email" name="app_email" required type="email">
         </div>
 
         <div class="col-md-6">
-            <label for="level" class="form-label">Current Level: *</label>
-            <select name="level" class="form-select" id="level" required>
+            <label class="form-label" for="level">Current Level: *</label>
+            <select class="form-select" id="level" name="level" required>
                 <option selected>Choose...</option>
                 <option value="BS">BS</option>
                 <option value="MS">MS</option>
@@ -38,28 +39,28 @@
         </div>
 
         <div class="col-md-6">
-            <label for="grad-semester" class="form-label">Graduating Semester: *</label>
-            <input class="form-control" name="grad_semester" id="grad-semester" required>
+            <label class="form-label" for="grad-semester">Graduating Semester: *</label>
+            <input class="form-control" id="grad-semester" name="grad_semester" required>
         </div>
 
         <div class="col-md-6">
-            <label for="umkc-gpa" class="form-label">UMKC Cumulative GPA:</label>
-            <input type="text" class="form-control" name="umkc_gpa" id="umkc-gpa">
+            <label class="form-label" for="umkc-gpa">UMKC Cumulative GPA:</label>
+            <input class="form-control" id="umkc-gpa" name="umkc_gpa" type="text">
         </div>
 
         <div class="col-md-6">
-            <label for="umkc-hours" class="form-label">Hours Completed at UMKC:</label>
-            <input type="number" class="form-control" name="umkc_hours" id="umkc-hours">
+            <label class="form-label" for="umkc-hours">Hours Completed at UMKC:</label>
+            <input class="form-control" id="umkc-hours" name="umkc_hours" type="number">
         </div>
 
         <div class="col-md-6">
-            <label for="undergrad" class="form-label">Undergraduate Degree:</label>
-            <input type="text" class="form-control" name="undergrad" id="undergrad" >
+            <label class="form-label" for="undergrad">Undergraduate Degree:</label>
+            <input class="form-control" id="undergrad" name="undergrad" type="text">
         </div>
 
         <div class="col-md-6">
-            <label for="major" class="form-label">Current Major: *</label>
-            <select name="major" class="form-select" id="major" required>
+            <label class="form-label" for="major">Current Major: *</label>
+            <select class="form-select" id="major" name="major" required>
                 <option selected>Choose...</option>
                 <option value="CS">CS</option>
                 <option value="IE">IT</option>
@@ -69,8 +70,8 @@
         </div>
 
         <div class="col-md-12">
-            <label for="apply-for" class="form-label">Applying For: *</label>
-            <select name="apply_for" class="form-select" id="apply-for" required>
+            <label class="form-label" for="apply-for">Applying For: *</label>
+            <select class="form-select" id="apply-for" name="apply_for" required>
                 <option selected>Choose...</option>
                 <option value="Grader">Grader</option>
                 <option value="Lab Instructor">Lab Instructor</option>
@@ -79,20 +80,99 @@
         </div>
 
         <div class="col-md-12">
-            <label for="international-std" class="form-label">(International Students ONLY) Are you GTA Certified? If so, which term did you complete your certification? If you have a previous degree from a US Institute, please indicate this as that waives GTA certification:</label>
-            <input type="text" class="form-control" name="international_std" id="international-std">
+            <label class="form-label" for="international-std">(International Students ONLY) Are you GTA Certified? If
+                so, which term did you complete your certification? If you have a previous degree from a US Institute,
+                please indicate this as that waives GTA certification:</label>
+            <input class="form-control" id="international-std" name="international_std" type="text">
         </div>
 
         <div class="col-md-12">
-            <label for="course-interest" class="form-label">Courses you could serve as lab instructor or grade for (ex. CS 201L/CS 5525/ECE 216, etc.):</label>
-            <input type="text" class="form-control" name="course_interest" id="course-interest"><br>
+            <label class="form-label" for="course-interest">Courses you could serve as lab instructor or grade for (ex.
+                CS 201L/CS 5525/ECE 216, etc.):</label>
+            <input class="form-control" id="course-interest" name="course_interest" type="text"><br>
         </div>
 
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary" >Submit</button>
+            <button class="btn btn-primary" name="submit" type="submit" value="submit">Submit</button>
         </div>
     </form>
 </div>
+{% elif has_app %}
+<div class="container-fluid" style="width: 80%; margin-top: 32px">
+    <h1>My Saved Application</h1><br>
+    <div class="row g-2">
+        <div class="col-md-6">
+            <label>First Name: </label>
+            <span>{{current_user.user_app.f_name}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Last Name: </label>
+            <span>{{current_user.user_app.l_name}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Student ID: </label>
+            <span>{{current_user.user_app.std_id}}</span>
+        </div>
+        <div class="col-md-6">
+            <label>Email: </label>
+            <span>{{current_user.user_app.app_email}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Current Level: </label>
+            <span>{{current_user.user_app.level}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Graduating Semester: </label>
+            <span>{{current_user.user_app.grad_semester}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>UMKC Cumulative GPA:</label>
+            <span>{{current_user.user_app.umkc_gpa}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Hours Completed at UMKC:</label>
+            <span>{{current_user.user_app.umkc_hours}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Undergraduate Degree:</label>
+            <span>{{current_user.user_app.undergrad}}</span>
+        </div>
+
+        <div class="col-md-6">
+            <label>Current Major: </label>
+            <span>{{current_user.user_app.major}}</span>
+        </div>
+
+        <div class="col-md-12">
+            <label>Applying For: </label>
+            <span>{{current_user.user_app.apply_for}}</span>
+        </div>
+
+        <div class="col-md-12">
+            <label>(International Students ONLY) Are you GTA Certified? If so, which term did you complete your
+                certification? If you have a previous degree from a US Institute, please indicate this as that waives
+                GTA certification:</label>
+        </div>
+
+        <div class="col-md-12">
+            <label>Courses you could serve as lab instructor or grade for (ex. CS 201L/CS 5525/ECE 216, etc.):</label>
+            <br>
+        </div>
+        <form method="POST">
+            <div class="col-md-3">
+                <button class="btn btn-primary" name="submit" value="resubmit">Re-Submit Application</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
 <!-- comment -->
 {% endblock %}
 

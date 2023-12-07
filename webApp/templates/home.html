@@ -13,26 +13,76 @@
         <h1>Welcome to The UMKC GTA Applicant Portal!</h1>
     </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 16px">
     <h1 class="display-2">Our Goal..</h1>
     <p>
         To make a seamless process for our valued professors to locate quality help, and for interested applicants to
         easily view and apply for job openings.
     </p>
-</div><br>
-<div class="container-fluid" style="border-top: 1px solid #cecece;">
-    <h1 class="display-2">Courses Overview</h1>
+</div>
+
+<div class="container-fluid" style="border-top: 1px solid #cecece; margin-top: 32px;">
+    <h1 class="display-2">Recent Jobs</h1>
+    <!---->
+    <div class="row g-4">
+        {% for course in courses %}
+        <div class="col-sm-3">
+            <div class="card umkc-yellow" style="width: 18rem; height: 10rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{course.c_name}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{course.instructor}}</h6>
+                    <p class="card-text">{{course.position}}</p>
+                    <p class="card-text">GTA Certification Required: {{course.gta_cert_req}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- -->
+        <div class="col-sm-3">
+
+            <div class="card umkc-yellow" style="width: 18rem; height: 10rem;">
+                <div class="card-body">
+                    <h5 class="card-text">View All</h5>
+                    {% if current_user.is_admin %}
+                    <a class="stretched-link" href="/editCourses" style="background-color: white;"></a>
+                    {% else %}
+                    <a class="stretched-link" href="/viewCourses" style="background-color: white;"></a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="border-top: 1px solid #cecece; margin-top: 32px;">
+    <h1 class="display-2">Program Overviews</h1>
     <div class="accordion accordion-flush" id="courseAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button aria-controls="cOne" aria-expanded="false" class="accordion-button collapsed"
                         data-bs-target="#cOne" data-bs-toggle="collapse" type="button">
-                    CS101
+                    Computer Science (CS)
                 </button>
             </h2>
             <div class="accordion-collapse collapse" data-bs-parent="courseAccordion" id="cOne">
                 <div class="accordion-body">
-                    Placeholder text.
+                    <ul>
+                        <li>Analyze a complex computing problem and to apply principles of computing and other relevant
+                            disciplines to identify solutions.
+                        </li>
+                        <li>Design, implement, and evaluate a computing-based solution to meet a given set of computing
+                            requirements in the context of the program’s discipline.
+                        </li>
+                        <li>Communicate effectively in a variety of professional contexts.
+                        </li>
+                        <li>Recognize professional responsibilities and make informed judgments in computing practice
+                            based on legal and ethical principles.
+                        </li>
+                        <li>Function effectively as a member or leader of a team engaged in activities appropriate to
+                            the program’s discipline.
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -41,7 +91,7 @@
             <h2 class="accordion-header">
                 <button aria-controls="cTwo" aria-expanded="false" class="accordion-button collapsed"
                         data-bs-target="#cTwo" data-bs-toggle="collapse" type="button">
-                    CS201
+                    Electrical and Computer Engineering (ECE)
                 </button>
             </h2>
             <div class="accordion-collapse collapse" data-bs-parent="courseAccordion" id="cTwo">
@@ -55,7 +105,7 @@
             <h2 class="accordion-header">
                 <button aria-controls="cThree" aria-expanded="false" class="accordion-button collapsed"
                         data-bs-target="#cThree" data-bs-toggle="collapse" type="button">
-                    CS303
+                    Information Technologies (IT)
                 </button>
             </h2>
             <div class="accordion-collapse collapse" data-bs-parent="courseAccordion" id="cThree">

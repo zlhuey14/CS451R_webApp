@@ -1,6 +1,29 @@
-.navbar-blue {
+.umkc-blue {
 background:#0066cc;
-height:120px;
+}
+
+.umkc-yellow {
+background:#ffd52f;
+}
+
+#my-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#main-content-wrap {
+  padding-bottom: 64px;
+}
+
+.card:hover{
+transform: scale(1.03);
+box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
 .nav-link {
@@ -23,6 +46,7 @@ background-color: red;
 color: white;
 text-align: center;
 position: absolute;
+top: 0;
 left: 0;
 right: 0;
 margin-left: auto;
@@ -40,6 +64,7 @@ background-color: green;
 color: white;
 text-align: center;
 position: absolute;
+top: 0;
 left: 0;
 right: 0;
 margin-left: auto;

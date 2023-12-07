@@ -31,8 +31,8 @@ def create_app():
         #db.session.commit()
 
         db.create_all()
-        test_email = 'janedoe@umsystem.edu'
-        test_pass = '54321'
+        test_email = 'cs451r.admin@umsystem.edu'
+        test_pass = '112233'
         test_user = User.query.filter_by(email=test_email).first()
         if not test_user:
             user = User(email=test_email, password=generate_password_hash(test_pass, method='pbkdf2'), is_admin=False)

@@ -12,7 +12,7 @@
 <body>
 <!-- NAVBAR -->
 {% block nav_content %}
-<nav class="navbar navbar-expand-lg navbar-blue">
+<nav class="navbar navbar-expand-lg umkc-blue" style="height:120px;">
     <a class="navbar-brand" href="/">
         <img id="nav-logo" src="static/UMKC_with name_7405C_white.png"/>
     </a>
@@ -38,6 +38,7 @@
             </li>
 
             <!--NEW-->
+            <!--
             <li class="nav-item dropdown">
                 <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
                    role="button">
@@ -47,6 +48,10 @@
                     <li><a class="dropdown-item" href="/gtaApplication">Create/edit Application</a></li>
                     <li><a class="dropdown-item" href="/viewApplication">View Application</a></li>
                 </ul>
+            </li>
+            -->
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="/gtaApplication" id="gtaApplication">Application</a>
             </li>
             {% elif current_user.is_authenticated and current_user.is_admin == True %}
             <li class="nav-item">
@@ -63,6 +68,9 @@
         </ul>
         <ul class="navbar-nav ms-auto">
             {% if current_user.is_anonymous %}
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="/signup" id="signup">Sign Up</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-item nav-link" href="/login" id="login">Login</a>
             </li>
@@ -81,15 +89,29 @@
 <!-- END OF THE NAVBAR -->
 
 <!-- MAIN PAGE CONTENT TO BE DISPLAYED -->
-<div class="container">
-    {% block content %}
-    {% endblock %}
+<div id="page-container">
+    <div class="container">
+        <div id="main-content-wrap">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <!-- END OF PAGE CONTENT -->
+    {% block footer %}
+    <!-- FOOTER START -->
+
+    <footer id="my-footer">
+        <div class="container-fluid umkc-blue" style="height:120px;">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="#">Contact</a></li>
+            </ul>
+            <p class="text-center text-body-secondary">© 2023 404 Found</p>
+        </div>
+    </footer>
 </div>
-<!-- END OF PAGE CONTENT -->
-
-<!-- FOOTER START -->
-
 <!-- FOOTER END -->
+{% endblock %}
 
 
 <!--The scripts loaded below are part of a bootstrap that gives us extra functionality-->

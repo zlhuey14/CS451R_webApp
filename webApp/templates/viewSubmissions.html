@@ -27,6 +27,8 @@
             <td style="color:#228B22"><b>{{submission.status}}</b></td>
             {% elif submission.status == 'Denied' %}
             <td style="color:#8B0000"><b>{{submission.status}}</b></td>
+            {% elif submission.status == 'Pending..' %}
+            <td><b>{{submission.status}}</b></td>
             {% endif %}
         </tr>
         {% endfor %}

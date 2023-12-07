@@ -17,9 +17,8 @@
 {% endif %}
 {% endwith %}
 
-<div class="container-fluid" style="width: 80%;">
-    <br><br>
-    <h1>Edit Open Courses</h1><br>
+<div class="container-fluid" style="width: 80%; margin-top: 32px;">
+    <h1>Edit Open Courses</h1>
     <form class="container text-center" method="POST">
         <div class="row row-cols-auto">
             <div class="col">Filter by:</div>
@@ -29,7 +28,9 @@
                 <select class="form-select form-select-sm" id="degree-filter" name="degree_filter">
                     <option value="default">Default</option>
                     <option value="CS">CS</option>
+                    <option value="IT">IT</option>
                     <option value="ECE">ECE</option>
+                    <option value="EE">EE</option>
                 </select>
             </div>
 
@@ -63,7 +64,7 @@
 </div>
 
 <div class="container-fluid" style="width: 80%">
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th scope="col">Course ID</th>
@@ -87,7 +88,7 @@
                 <td>{{course.gta_cert_req}}</td>
                 {% if current_user.is_authenticated and current_user.is_admin %}
                 <td>
-                    <button class="btn btn-danger" name="remove_btn" value="remove">Remove</button>
+                    <button class="btn btn-danger" name="remove_btn" value="{{course.id}}">Remove</button>
                 </td>
                 {% endif %}
             </tr>
@@ -95,6 +96,41 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
+
+<div class="container-fluid" style="width: 80%; margin-top: 32px;">
+    <h2>Add a Course</h2>
+    <form method="POST" class="row g-5">
+        <div class="col-md-2">
+            <label for="class-name" class="form-label">Course Name</label>
+            <input type="text" class="form-control" name="c_name" id="class-name" required>
+        </div>
+        <div class="col-md-2">
+            <label for="instructor" class="form-label">Instructor</label>
+            <input type="text" class="form-control" name="instructor" id="instructor" required>
+        </div>
+        <div class="col-md-2">
+            <label for="position" class="form-label">Position</label>
+            <select class="form-select" name="position" id="position" required>
+                <option selected>Choose...</option>
+                <option value="Grader">Grader</option>
+                <option value="Lab Instructor">Lab Instructor</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="gta-cert-req" class="form-label">GTA Certification Required</label>
+            <select class="form-select" name="gta_cert_req" id="gta-cert-req" required>
+                <option selected>Choose...</option>
+                <option value="True">True</option>
+                <option value="False">False</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="add-course" class="form-label">Action</label>
+            <button type="submit" class="btn btn-primary" name="button" id="add-course" value="add_course" >Add Course</button>
+        </div>
+    </form>
+
 </div>
 
 {% endblock %}

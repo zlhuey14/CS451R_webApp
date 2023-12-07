@@ -10,11 +10,47 @@ from .tables import GTAApplication, Course, Submissions, User
 
 views = Blueprint('views', __name__)
 
+"""
+@views.route('/adminView', methods=['POST'])
+@login_required
+def admin_view_filter():
+    if request.method == 'POST':
+        if request.form.get('button') == 'filter':
+            filterChoice1 = request.form.get('level_filter')
+            filterChoice2 = request.form.get('major_filter')
+            filterChoice3 = request.form.get('pp_filter')
+            print('filter 1: ', filterChoice1)
+            print('filter 2: ', filterChoice2)
+            print('filter 3: ', filterChoice3)
+            level_search = "%{}%".format(filterChoice1)
+            major_search = "%{}%".format(filterChoice2)
+            pp_search = "%{}%".format(filterChoice3)
+
+            if filterChoice1 == 'default':
+                if filterChoice2 == 'default':
+                    if filterChoice3 == 'default':
+                        submissions_join = db.session.query(Submissions, User, Course, GTAApplication). \
+                            select_from(Submissions).join(User).join(Course).join(GTAApplication).all()
+                    else:
+                        submissions_join = db.session.query(Submissions, User, Course, GTAApplication). \
+                            select_from(Submissions).join(User).join(Course).join(GTAApplication).filter(
+                            GTAApplication.apply_for.like(pp_search))
+
+            if filterChoice1 == 'default' and filterChoice2 == 'default' and filterChoice3 == 'default':
+                submissions_join = db.session.query(Submissions, User, Course, GTAApplication). \
+                    select_from(Submissions).join(User).join(Course).join(GTAApplication).all()
+
+    return render_template('adminView.html', submissions_join=submissions_join)
+
+"""
+
 @views.route('/adminView')
 @login_required
 def admin_view():
-    return render_template('adminView.html', submissions_join=db.session.query(Submissions, User, Course, GTAApplication).\
-            select_from(Submissions).join(User).join(Course).join(GTAApplication).all())
+    submissions_join = db.session.query(Submissions, User, Course, GTAApplication). \
+        select_from(Submissions).join(User).join(Course).join(GTAApplication).all()
+    return render_template('adminView.html', submissions_join=submissions_join)
+
 
 @views.route('/adminView', methods=['POST'])
 @login_required
@@ -33,9 +69,9 @@ def admin_action():
             submission_status_update.status = 'Denied'
             db.session.commit()
 
-    return render_template('adminView.html', submissions_join=db.session.query(Submissions, User, Course, GTAApplication).\
-            select_from(Submissions).join(User).join(Course).join(GTAApplication).all())
-
+    return render_template('adminView.html',
+                           submissions_join=db.session.query(Submissions, User, Course, GTAApplication). \
+                           select_from(Submissions).join(User).join(Course).join(GTAApplication).all())
 
 
 @views.route('/editCourses', methods=['POST'])
@@ -45,7 +81,38 @@ def edit_courses_filter():
     if request.method == 'POST':
 
         if request.form.get('remove_btn'):
-            print('doesnt work yet')
+            course_id = request.form.get('remove_btn')
+            print(course_id)
+            Course.query.filter(Course.id == course_id).delete()
+            db.session.commit()
+            flash('Course removed.', 'success')
+            return redirect(url_for('views.edit_courses'))
+
+        elif request.form.get('button') == 'add_course':
+            new_c_name = request.form.get('c_name')
+            new_instructor = request.form.get('instructor')
+            new_pos = request.form.get('position')
+            new_gta_cert_req = request.form.get('gta_cert_req')
+
+            # PRINTING VALUES OF HTML ENTERED FIELDS FOR TESTING
+            print(new_c_name)
+            print(new_instructor)
+            print(new_pos)
+            print(new_gta_cert_req)
+            # END TEST PRINTING VALUES
+
+            if new_gta_cert_req == 'True':
+                newCourse = Course(c_name=new_c_name, instructor=new_instructor, position=new_pos, gta_cert_req=1)
+                db.session.add(newCourse)
+                db.session.commit()
+                return redirect(url_for('views.edit_courses'))
+
+            elif new_gta_cert_req == 'False':
+                newCourse = Course(c_name=new_c_name, instructor=new_instructor, position=new_pos, gta_cert_req=0)
+                db.session.add(newCourse)
+                db.session.commit()
+                return redirect(url_for('views.edit_courses'))
+
 
         elif request.form.get('button') == 'filter':
             filterChoice1 = request.form.get('gta_filter')
@@ -105,7 +172,9 @@ def edit_courses_filter():
             if filterChoice1 == 'default' and filterChoice2 == 'default' and filterChoice3 == 'default':
                 courses = Course.query.all()
 
+
     return render_template('editCourses.html', courses=courses)
+
 
 @views.route('/editCourses')
 @login_required
@@ -214,14 +283,16 @@ def view_application():
 @views.route('/viewSubmissions')
 @login_required
 def view_submissions():
-    return render_template('viewSubmissions.html', user=current_user, student_submissions=db.session.query(Submissions, User, Course).\
-            select_from(Submissions).join(User).filter(User.id == current_user.id).join(Course).all())
+    return render_template('viewSubmissions.html', user=current_user,
+                           student_submissions=db.session.query(Submissions, User, Course). \
+                           select_from(Submissions).join(User).filter(User.id == current_user.id).join(Course).all())
 
 
 @views.route('/gtaApplication')
 @login_required
 def gta_application():
-    return render_template("gtaApplication.html", user=current_user)
+    has_app = GTAApplication.query.filter(GTAApplication.user_id == current_user.id).first()
+    return render_template("gtaApplication.html", has_app=has_app)
 
 
 @views.route('/gtaApplication', methods=['GET', 'POST'])
@@ -230,30 +301,36 @@ def gta_application_post():
     print(data)
     if current_user.is_authenticated:
         if request.method == 'POST':
-            f_name = request.form.get('first_name')
-            l_name = request.form.get('last_name')
-            std_id = request.form.get('std_id')
-            app_email = request.form.get('app_email')
-            level = request.form.get('level')
-            grad_semester = request.form.get('grad_semester')
-            umkc_gpa = request.form.get('umkc_gpa')
-            umkc_hours = request.form.get('umkc_hours')
-            undergrad = request.form.get('undergrad_degree')
-            major = request.form.get('major')
-            apply_for = request.form.get('apply_for')
+            if request.form.get('submit') == 'submit':
+                f_name = request.form.get('first_name')
+                l_name = request.form.get('last_name')
+                std_id = request.form.get('std_id')
+                app_email = request.form.get('app_email')
+                level = request.form.get('level')
+                grad_semester = request.form.get('grad_semester')
+                umkc_gpa = request.form.get('umkc_gpa')
+                umkc_hours = request.form.get('umkc_hours')
+                undergrad = request.form.get('undergrad_degree')
+                major = request.form.get('major')
+                apply_for = request.form.get('apply_for')
 
-            user_app = GTAApplication(user_id=current_user.id, f_name=f_name,
-                                      l_name=l_name, std_id=std_id,
-                                      app_email=app_email, level=level,
-                                      grad_semester=grad_semester, umkc_gpa=umkc_gpa,
-                                      umkc_hours=umkc_hours, undergrad=undergrad,
-                                      major=major, apply_for=apply_for)
-            db.session.add(user_app)
-            db.session.commit()
+                user_app = GTAApplication(user_id=current_user.id, f_name=f_name,
+                                          l_name=l_name, std_id=std_id,
+                                          app_email=app_email, level=level,
+                                          grad_semester=grad_semester, umkc_gpa=umkc_gpa,
+                                          umkc_hours=umkc_hours, undergrad=undergrad,
+                                          major=major, apply_for=apply_for)
+                db.session.add(user_app)
+                db.session.commit()
 
-            return redirect(url_for('views.gta_application'))
+            elif request.form.get('submit') == 'resubmit':
+                GTAApplication.query.filter(GTAApplication.user_id == current_user.id).delete()
+                db.session.commit()
+
+        return redirect(url_for('views.gta_application'))
 
 
 @views.route('/', methods=['GET'])
 def home():
-    return render_template("home.html")
+    recent_courses = Course.query.order_by(Course.id.desc()).limit(3).all()
+    return render_template("home.html", courses=recent_courses)
