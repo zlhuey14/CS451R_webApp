@@ -10,47 +10,12 @@ from .tables import GTAApplication, Course, Submissions, User
 
 views = Blueprint('views', __name__)
 
-"""
-@views.route('/adminView', methods=['POST'])
-@login_required
-def admin_view_filter():
-    if request.method == 'POST':
-        if request.form.get('button') == 'filter':
-            filterChoice1 = request.form.get('level_filter')
-            filterChoice2 = request.form.get('major_filter')
-            filterChoice3 = request.form.get('pp_filter')
-            print('filter 1: ', filterChoice1)
-            print('filter 2: ', filterChoice2)
-            print('filter 3: ', filterChoice3)
-            level_search = "%{}%".format(filterChoice1)
-            major_search = "%{}%".format(filterChoice2)
-            pp_search = "%{}%".format(filterChoice3)
-
-            if filterChoice1 == 'default':
-                if filterChoice2 == 'default':
-                    if filterChoice3 == 'default':
-                        submissions_join = db.session.query(Submissions, User, Course, GTAApplication). \
-                            select_from(Submissions).join(User).join(Course).join(GTAApplication).all()
-                    else:
-                        submissions_join = db.session.query(Submissions, User, Course, GTAApplication). \
-                            select_from(Submissions).join(User).join(Course).join(GTAApplication).filter(
-                            GTAApplication.apply_for.like(pp_search))
-
-            if filterChoice1 == 'default' and filterChoice2 == 'default' and filterChoice3 == 'default':
-                submissions_join = db.session.query(Submissions, User, Course, GTAApplication). \
-                    select_from(Submissions).join(User).join(Course).join(GTAApplication).all()
-
-    return render_template('adminView.html', submissions_join=submissions_join)
-
-"""
-
 @views.route('/adminView')
 @login_required
 def admin_view():
     submissions_join = db.session.query(Submissions, User, Course, GTAApplication). \
         select_from(Submissions).join(User).join(Course).join(GTAApplication).all()
     return render_template('adminView.html', submissions_join=submissions_join)
-
 
 @views.route('/adminView', methods=['POST'])
 @login_required
@@ -72,7 +37,6 @@ def admin_action():
     return render_template('adminView.html',
                            submissions_join=db.session.query(Submissions, User, Course, GTAApplication). \
                            select_from(Submissions).join(User).join(Course).join(GTAApplication).all())
-
 
 @views.route('/editCourses', methods=['POST'])
 def edit_courses_filter():
@@ -175,7 +139,6 @@ def edit_courses_filter():
 
     return render_template('editCourses.html', courses=courses)
 
-
 @views.route('/editCourses')
 @login_required
 def edit_courses():
@@ -272,12 +235,6 @@ def courses_filter():
                 courses = Course.query.all()
 
     return render_template('viewCourses.html', courses=courses)
-
-
-@views.route('/viewApplication')
-@login_required
-def view_application():
-    return render_template('viewApplication.html', user=current_user)
 
 
 @views.route('/viewSubmissions')
