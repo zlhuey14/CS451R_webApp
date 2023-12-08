@@ -15,42 +15,43 @@
 </div>
 <div class="container-fluid" style="margin-top: 16px">
     <h1 class="display-2">Our Goal..</h1>
-        <p>
-            To make a seamless process for our valued professors to locate quality help, and for interested applicants to
+    <p>
+        To make a seamless process for our valued professors to locate quality help, and for interested applicants to
         easily view and apply for job openings.
-        </p>
+    </p>
 </div>
 
 <div class="container-fluid" style="border-top: 1px solid #cecece; margin-top: 32px;">
     <h1 class="display-2">Recent Job Postings</h1>
     <!---->
-    <div class="row g-4">
-        {% for course in courses %}
-        <div class="col-sm-3">
-            <div class="card umkc-yellow" style="width: 18rem; height: 10rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{course.c_name}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{course.instructor}}</h6>
-                    <p class="card-text">{{course.position}}</p>
-                    <p class="card-text">GTA Certification Required: {{course.gta_cert_req}}</p>
+    <div class="container-fluid" style="margin-top: 16px;">
+        <div class="row g-4">
+            {% for course in courses %}
+            <div class="col-sm-3">
+                <div class="card umkc-yellow" style="width: 18rem; height: 10rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{course.c_name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{course.instructor}}</h6>
+                        <p class="card-text">{{course.position}}</p>
+                        <p class="card-text">GTA Certification Required: {{course.gta_cert_req}}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endfor %}
-        <!-- -->
-        <div class="col-sm-3">
+            {% endfor %}
+            <!-- -->
+            <div class="col-sm-3">
 
-            <div class="card umkc-yellow" style="width: 18rem; height: 10rem;">
-                <div class="card-body">
-                    <h5 class="card-text">View All</h5>
-                    {% if current_user.is_admin %}
-                    <a class="stretched-link" href="/editCourses" style="background-color: white;"></a>
-                    {% else %}
-                    <a class="stretched-link" href="/viewCourses" style="background-color: white;"></a>
-                    {% endif %}
+                <div class="card umkc-yellow" style="width: 18rem; height: 10rem;">
+                    <div class="card-body">
+                        <h5 class="card-text">View All</h5>
+                        {% if current_user.is_admin %}
+                        <a class="stretched-link" href="/editCourses" style="background-color: white;"></a>
+                        {% else %}
+                        <a class="stretched-link" href="/viewCourses" style="background-color: white;"></a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -67,6 +68,10 @@
             </h2>
             <div class="accordion-collapse collapse" data-bs-parent="courseAccordion" id="cOne">
                 <div class="accordion-body">
+                    <p>Below are ABET student learning outcomes as provided in the <a
+                            href="https://catalog.umkc.edu/colleges-schools/science-engineering/computer-science/bachelor-of-science-computer-science/">UMKC
+                        catalog</a>.
+                    </p>
                     <ul>
                         <li>Analyze a complex computing problem and to apply principles of computing and other relevant
                             disciplines to identify solutions.
@@ -96,7 +101,29 @@
             </h2>
             <div class="accordion-collapse collapse" data-bs-parent="courseAccordion" id="cTwo">
                 <div class="accordion-body">
-                    Placeholder text.
+                    <p>Below are ABET educational outcomes as provided in the <a
+                            href="https://catalog.umkc.edu/colleges-schools/science-engineering/electrical-computer-engineering/bachelor-of-science-electrical-computer-engineering/">UMKC
+                        catalog</a>.
+                    </p>
+                    <ul>
+                        <li>Utilize their unique blend of electrical and computer engineering proficiencies to create
+                            innovative solutions to current and emerging challenges in areas such as nanotechnology,
+                            artificial intelligence, embedded systems, robotics, RF engineering, microelectronics,
+                            communications, and the smart grid.
+                        </li>
+                        <li>Successfully apply technical knowledge to innovate and bring forth transformational change
+                            for metropolitan, regional, and global well-being.
+                        </li>
+                        <li>Exhibit strong leadership skills in solving electrical and computer engineering problems in
+                            society.
+                        </li>
+                        <li>Communicate effectively to build successful teams, convey technical information to multiple
+                            audiences, and bring technologies to success in the marketplace.
+                        </li>
+                        <li>Continually contribute to the profession through graduate education, professional licensure,
+                            or other professional development pursuits.
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
